@@ -28,6 +28,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 
+-- vim.api.colorscheme = catppuccin-macchiato
 vim.cmd [[colorscheme catppuccin-macchiato]]
 vim.api.nvim_set_option_value("colorcolumn", "79", {})
 

@@ -52,4 +52,22 @@ vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symb
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap=true, silent=true })
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap=true, silent=true })
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap=true, silent=true })
+
+-- CMP mappings
+ -- window = {
+ --   documentation = cmp.config.window.bordered(),
+ -- },
+ -- mapping = {
+ --   ['<Tab>'] = cmp.mapping.select_next_item(),
+ --   ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+ --   ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+ --   ['<C-f>'] = cmp.mapping.scroll_docs(4),
+ --   ['<C-space>'] = cmp.mapping.complete(),
+ --   ['<C-e>'] = cmp.mapping.close(),
+ --   ['<CR>'] = cmp.mapping.confirm({
+ --     behavior = cmp.ConfirmBehavior.Insert,
+ --     select = false,
+ --   }),
+ -- },
+
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap=true, silent=true })

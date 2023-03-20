@@ -1,5 +1,3 @@
-dofile(vim.g.base46_cache .. "lsp")
-
 local M = {}
 
 -- export on_attach & capabilities for custom lspconfigs
@@ -31,18 +29,6 @@ vim.lsp.protocol.CompletionItemKind = {
   ' (operator)',
   ' (type)',
 }
-
-local signs = {
-  Error = vim.g.diagnostic_icons.Error,
-  Warn = vim.g.diagnostic_icons.Warning,
-  Hint = vim.g.diagnostic_icons.Hint,
-  Info = vim.g.diagnostic_icons.Information,
-}
-
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 M.on_attach = function(client)
   client.server_capabilities.documentFormattingProvider = false

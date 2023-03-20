@@ -1,4 +1,4 @@
-local options = {
+local M = {
   filters = {
     dotfiles = false,
     exclude = { vim.fn.stdpath "config" .. "/lua/custom" },
@@ -73,6 +73,6 @@ local options = {
   },
 }
 
-vim.g.nvimtree_side = options.view.side
+vim.g.nvimtree_side = M.view.side
 
-return options
+return M

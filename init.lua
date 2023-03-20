@@ -14,10 +14,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("core.settings")
 require("plugins")
--- require("plugins.mason")
+require("impatient")
+require("core.settings")
 require("core.autoformat")
 require("core.mappings")
 
+require('Comment').setup()
 -- vim: ts=2 sts=2 sw=2 et

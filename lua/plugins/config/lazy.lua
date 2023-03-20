@@ -3,22 +3,12 @@
 local M = {}
 
 M.plugins = {
-  {
-    "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-    opts = function()
-      return require("plugins.config.others").mason
-    end,
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "mason")
-      require("mason").setup(opts)
-
-      -- custom nvchad cmd to install all mason binaries listed
-      vim.api.nvim_create_user_command("MasonInstallAll", function()
-        vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
-      end, {})
-    end,
-  },
+  "williamboman/mason.nvim",
+  'williamboman/mason-lspconfig.nvim',
+  "nvim-lua/plenary.nvim",
+  'folke/neodev.nvim',
+  'lewis6991/impatient.nvim',
+  "nvim-tree/nvim-tree.lua",
 
   {
     'j-hui/fidget.nvim',
@@ -29,31 +19,11 @@ M.plugins = {
     },
   },
 
-  "nvim-lua/plenary.nvim",
-  'williamboman/mason-lspconfig.nvim',
-  'folke/neodev.nvim',
-
   -- LSP related
   'ray-x/lsp_signature.nvim',
 
   {
     "neovim/nvim-lspconfig",
-    native_lsp = {
-      enabled = true,
-      virtual_text = {
-        errors = { "italic" },
-        hints = { "italic" },
-        warnings = { "italic" },
-        information = { "italic" },
-      },
-      underlines = {
-        errors = { "underline" },
-        hints = { "underline" },
-        warnings = { "underline" },
-        information = { "underline" },
-      },
-    },
-
     config = function()
       require "plugins.config.lspconfig"
     end,
@@ -64,13 +34,6 @@ M.plugins = {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    opts = function()
-      return require "plugins.config.treesitter"
-    end,
-    config = function(_, opts)
-      pcall(dofile, vim.g.base46_cache .. "syntax")
-      require("nvim-treesitter.configs").setup(opts)
-    end,
   },
 
   {
@@ -82,30 +45,14 @@ M.plugins = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
     },
-    config = function()
-      require('plugins.config.cmp')
-    end,
-  },
-
-  -- file managing , picker etc
-  {
-    "nvim-tree/nvim-tree.lua",
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    opts = function()
-      return require "plugins.config.nvimtree"
-    end,
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "nvimtree")
-      require("nvim-tree").setup(opts)
-    end,
   },
 
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    config = function()
-      require('plugins.config.telescope')
-    end,
+    --config = function()
+    --  require('plugins.config.telescope')
+    --end,
   },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -122,16 +69,16 @@ M.plugins = {
   },
 
   -- Other plugins
+  "numToStr/Comment.nvim",
   'tpope/vim-sleuth',
   'mhartington/formatter.nvim',
   'nvim-tree/nvim-web-devicons',
+  "lukas-reineke/indent-blankline.nvim",
+  "folke/which-key.nvim",
 
   {
     "L3MON4D3/LuaSnip",
     dependencies = "rafamadriz/friendly-snippets",
-    config = function()
-      require("plugins.config.others").luasnip()
-    end,
   },
 
   {
@@ -146,32 +93,6 @@ M.plugins = {
       require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end,
   },
-
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
-  },
-
-  {
-    "folke/which-key.nvim",
-    opts = function()
-      return require("plugins.config.others").whichkey
-    end,
-  },
-
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    opts = function()
-      return require("plugins.config.others").blankline
-    end,
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "blankline")
-      require("indent_blankline").setup(opts)
-    end,
-  },
-
   { -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
@@ -254,13 +175,6 @@ M.plugins = {
           end
         end,
       })
-    end,
-    opts = function()
-      return require("plugins.config.others").gitsigns
-    end,
-    config = function(_, opts)
-      -- dofile(vim.g.base46_cache .. "git")
-      require("gitsigns").setup(opts)
     end,
   },
 }
