@@ -5,7 +5,7 @@ local treesitter_options = require("plugins.config.treesitter")
 local cmp_options = require("plugins.config.cmp")
 local blankline_options = require("plugins.config.blankline")
 local whichkey_options = require("plugins.config.which-key")
-local luasnip_options = require("plugins.config.luasnip")
+-- local luasnip_options = require("plugins.config.luasnip")
 local nvimtree_options = require("plugins.config.nvimtree")
 
 -- Lazy initialization

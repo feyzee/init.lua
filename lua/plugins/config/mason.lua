@@ -6,7 +6,7 @@ M = {
     'williamboman/mason-lspconfig.nvim',
   }, -- not an option from mason.nvim
 
-  PATH = "skip",
+  -- PATH = "skip",
 
   ui = {
     icons = {
@@ -15,6 +15,7 @@ M = {
       package_uninstalled = " ﮊ",
     },
 
+    -- TODO: move to mappings.lua
     keymaps = {
       toggle_server_expand = "<CR>",
       install_server = "i",
