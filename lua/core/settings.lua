@@ -1,15 +1,25 @@
+-- vim.opt.encoding = utf8
+
 vim.opt.number = true
 vim.opt.relativenumber = true
+
 vim.opt.wrap = true
 vim.opt.linebreak = true
+vim.opt.breakindent = true
+vim.opt.smartindent = true
+
 vim.opt.list = false
+-- vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+-- vim.opt.listchars:append "tab:→"
+vim.opt.listchars:append "eol:↴"
+
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+
 vim.opt.mouse = "a"
-vim.opt.breakindent = true
-vim.opt.smartindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -18,10 +28,8 @@ vim.opt.hidden = true
 vim.opt.updatetime = 250
 vim.opt.signcolumn = 'yes'
 vim.opt.termguicolors = true
-vim.opt.listchars:append "space:⋅"
---vim.opt.listchars:append "tab:→"
-vim.opt.listchars:append "eol:↴"
 vim.opt.hlsearch = false
+vim.opt.cursorline = true
 
 -- splits
 vim.opt.splitbelow = true
@@ -67,4 +75,3 @@ vim.api.nvim_create_autocmd({ "BufWritePre", "BufNewFile" }, {
   pattern = { "*.tfstate", "*.tfstate.backup" },
   command = "set filetype=json"
 })
-

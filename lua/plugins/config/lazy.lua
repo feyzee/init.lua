@@ -4,11 +4,8 @@ local M = {}
 
 M.plugins = {
   "williamboman/mason.nvim",
-  'williamboman/mason-lspconfig.nvim',
   "nvim-lua/plenary.nvim",
-  'folke/neodev.nvim',
   'lewis6991/impatient.nvim',
-  "nvim-tree/nvim-tree.lua",
 
   {
     'j-hui/fidget.nvim',
@@ -20,21 +17,10 @@ M.plugins = {
   },
 
   -- LSP related
-  'ray-x/lsp_signature.nvim',
-
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "plugins.config.lspconfig"
-    end,
-  },
-
-  {
-    "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-  },
+  "neovim/nvim-lspconfig",
+  'williamboman/mason-lspconfig.nvim',
+  "nvim-treesitter/nvim-treesitter",
+  "nvim-treesitter/nvim-treesitter-textobjects",
 
   {
     "hrsh7th/nvim-cmp",
@@ -44,16 +30,24 @@ M.plugins = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
     },
   },
 
-  {
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    --config = function()
-    --  require('plugins.config.telescope')
-    --end,
-  },
+
+  -- Other plugins
+  'nvim-lualine/lualine.nvim',
+  "numToStr/Comment.nvim",
+  'tpope/vim-sleuth',
+  'mhartington/formatter.nvim',
+  'nvim-tree/nvim-web-devicons',
+  "lukas-reineke/indent-blankline.nvim",
+  "windwp/nvim-autopairs",
+  "folke/which-key.nvim",
+  "nvim-tree/nvim-tree.lua",
+  'folke/neodev.nvim',
+  "nvim-telescope/telescope.nvim",
+  "jose-elias-alvarez/null-ls.nvim",
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -68,87 +62,14 @@ M.plugins = {
     end,
   },
 
-  -- Other plugins
-  "numToStr/Comment.nvim",
-  'tpope/vim-sleuth',
-  'mhartington/formatter.nvim',
-  'nvim-tree/nvim-web-devicons',
-  "lukas-reineke/indent-blankline.nvim",
-  "folke/which-key.nvim",
-
   {
     "L3MON4D3/LuaSnip",
     dependencies = "rafamadriz/friendly-snippets",
   },
 
   {
-    "windwp/nvim-autopairs",
-    opts = {
-      fast_wrap = {},
-      disable_filetype = { "TelescopePrompt", "vim" },
-    },
-    config = function(_, opts)
-      require("nvim-autopairs").setup(opts)
-      local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-      require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    end,
-  },
-  { -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      icons_enabled = false,
-      theme = 'catppuccin',
-      component_separators = '/',--'|',
-      section_separators = '',
-    },
-  },
-
-  {
     "catppuccin/nvim",
     name = "catppuccin",
-    opts = {
-      flavour = "macchiato", -- latte, frappe, macchiato, mocha
-      background = { -- :h background
-        light = "latte",
-        dark = "macchiato",
-      },
-      transparent_background = false,
-      term_colors = false,
-      dim_inactive = {
-        enabled = false,
-        shade = "dark",
-        percentage = 0.15,
-      },
-      no_italic = false, -- Force no italic
-      no_bold = false, -- Force no bold
-      styles = {
-        comments = { "italic" },
-        conditionals = { "italic" },
-        loops = {},
-        functions = {},
-        keywords = {},
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
-        properties = {},
-        types = {},
-        operators = {},
-      },
-      color_overrides = {},
-      custom_highlights = {},
-      integrations = {
-        cmp = true,
-        gitsigns = true,
-        nvimtree = true,
-        telescope = true,
-        notify = false,
-        mini = false,
-        fidget = true,
-        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-      },
-    }
   },
 
   -- Git related plugins

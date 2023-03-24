@@ -1,8 +1,25 @@
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
-local options = {
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'bash', 'c', 'cpp', 'dockerfile', 'go', 'hcl', 'help', 'html', 'javascript', 'json', 'json5', 'lua', 'markdown', 'markdown_inline', 'python', 'regex', 'rust', 'terraform', 'typescript', 'help', 'yaml' },
+return {
+  -- Add language parsers to be installed here that you want for treesitter
+  ensure_installed = {
+    'bash',
+    'dockerfile',
+    'go',
+    'hcl',
+    'help',
+    'html',
+    'javascript',
+    'json',
+    'json5',
+    'lua',
+    'markdown',
+    'markdown_inline',
+    'python',
+    'regex',
+    'rust',
+    'terraform',
+    'typescript',
+    'yaml'
+  },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -15,6 +32,7 @@ local options = {
       node_decremental = '<c-backspace>',
     },
   },
+
   textobjects = {
     select = {
       enable = true,
@@ -60,5 +78,3 @@ local options = {
     },
   },
 }
-
-return options

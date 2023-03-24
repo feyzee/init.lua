@@ -1,6 +1,4 @@
-local M = {}
-
-M = function()
+return function()
   local options = { history = true, updateevents = "TextChanged,TextChangedI" }
 
   require("luasnip").config.set_config(options)
@@ -19,5 +17,3 @@ M = function()
     end,
   })
 end
-
-return M

@@ -1,12 +1,15 @@
-local M = {}
-
-M = {
+return {
   ensure_installed = {
+    "bash-language-server",
+    "docker-compose-language-service",
+    "dockerfile-language-server",
+    "gopls",
     "lua-language-server",
-    'williamboman/mason-lspconfig.nvim',
-  }, -- not an option from mason.nvim
-
-  -- PATH = "skip",
+    "python-lsp-server",
+    "terraformls",
+    "tflint",
+    "yaml-language-server",
+  },
 
   ui = {
     icons = {
@@ -30,5 +33,3 @@ M = {
 
   max_concurrent_installers = 10,
 }
-
-return M

@@ -33,13 +33,16 @@ local completion_kind = {
   TypeParameter = ' (type)',
 }
 
-local M = ({
+local cmp = require'cmp'
+
+return ({
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
     end,
   },
-  formatting = {
+
+  formatting = { -- TODO: check the formatter
     format = function(entry, vim_item)
       vim_item.menu = completion_menu[entry.source.name]
       vim_item.kind = completion_kind[vim_item.kind]
@@ -47,23 +50,28 @@ local M = ({
       return vim_item
     end,
   },
- -- window = {
- --   documentation = cmp.config.window.bordered(),
- -- },
- -- mapping = {
- --   ['<Tab>'] = cmp.mapping.select_next_item(),
- --   ['<S-Tab>'] = cmp.mapping.select_prev_item(),
- --   ['<C-d>'] = cmp.mapping.scroll_docs(-4),
- --   ['<C-f>'] = cmp.mapping.scroll_docs(4),
- --   ['<C-space>'] = cmp.mapping.complete(),
- --   ['<C-e>'] = cmp.mapping.close(),
- --   ['<CR>'] = cmp.mapping.confirm({
- --     behavior = cmp.ConfirmBehavior.Insert,
- --     select = false,
- --   }),
- -- },
+
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+
+  mapping = {
+    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = false,
+    }),
+  },
+
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'luasnip' },
     { name = 'path' },
     {
       name = 'buffer',
@@ -77,7 +85,6 @@ local M = ({
         end,
       },
     },
+    { name = 'nvim_lsp_signature_help' },
   },
 })
-
-return M

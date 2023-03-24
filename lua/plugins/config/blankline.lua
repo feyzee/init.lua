@@ -1,6 +1,4 @@
-local M = {}
-
-M = {
+return {
   indentLine_enabled = 1,
   filetype_exclude = {
     "help",
@@ -10,7 +8,7 @@ M = {
     "TelescopePrompt",
     "TelescopeResults",
     "mason",
-    "",
+    "NvimTree",
   },
   buftype_exclude = { "terminal" },
   char = '┊',
@@ -21,5 +19,3 @@ M = {
   show_current_context = true,
   show_current_context_start = true,
 }
-
-return M

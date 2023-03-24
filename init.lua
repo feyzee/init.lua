@@ -1,4 +1,4 @@
--- Install package manager
+-- Check if Lazy package manager is installed
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -16,9 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("plugins")
 require("impatient")
+require("core.lspconfig")
 require("core.settings")
 require("core.autoformat")
 require("core.mappings")
-
-require('Comment').setup()
 -- vim: ts=2 sts=2 sw=2 et

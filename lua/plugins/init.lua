@@ -1,28 +1,22 @@
-local mason_options = require("plugins.config.mason")
 local lazy_plugins = require("plugins.config.lazy").plugins
 local lazy_options = require("plugins.config.lazy").options
-local treesitter_options = require("plugins.config.treesitter")
-local cmp_options = require("plugins.config.cmp")
-local blankline_options = require("plugins.config.blankline")
-local whichkey_options = require("plugins.config.which-key")
--- local luasnip_options = require("plugins.config.luasnip")
-local nvimtree_options = require("plugins.config.nvimtree")
 
--- Lazy initialization
+-- Plugin managers initialization
 require("lazy").setup(lazy_plugins, lazy_options)
-require("mason").setup(mason_options)
-
--- LSP Plugins
--- require("nvim-lspconfig").setup("plugins.config.lspconfig")
-require("nvim-treesitter.configs").setup(treesitter_options)
-require("cmp").setup(cmp_options)
+require("mason").setup(require("plugins.config.mason"))
 
 -- Plugins initialization
+require("nvim-treesitter.configs").setup(require("plugins.config.treesitter"))
+--require("luasnip").setup("plugins.config.luasnip") -- luasnip needs to be invoked before cmp.
+require("cmp").setup(require("plugins.config.cmp"))
+require("null-ls").setup(require("plugins.config.null-ls"))
 require("plugins.config.lualine")
-require('fidget').setup()
-require('neodev').setup()
-require('Comment').setup()
-require("indent_blankline").setup(blankline_options)
-require("which-key").setup(whichkey_options)
-require("nvim-tree").setup(nvimtree_options)
---require("luasnip").setup(luasnip_options)
+require("fidget").setup()
+require("neodev").setup()
+require("Comment").setup()
+require('lualine').setup(require("plugins.config.lualine"))
+require("indent_blankline").setup(require("plugins.config.blankline"))
+require("which-key").setup(require("plugins.config.which-key"))
+require("nvim-autopairs").setup(require("plugins.config.nvim-autopairs"))
+require("nvim-tree").setup(require("plugins.config.nvimtree"))
+require("catppuccin").setup(require("plugins.config.catppuccin"))
