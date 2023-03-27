@@ -68,6 +68,14 @@ M.plugins = {
   },
 
   {
+    "SmiteshP/nvim-navbuddy",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim"
+    },
+  },
+
+  {
     "catppuccin/nvim",
     name = "catppuccin",
   },

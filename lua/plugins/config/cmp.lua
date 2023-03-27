@@ -1,5 +1,5 @@
 local completion_menu = {
-  nvim_lsp = '[]',
+  nvim_lsp = '[LSP]',
   buffer = '[﬘]',
   path = '[]',
   spell = '[﬜]',
@@ -73,6 +73,7 @@ return ({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
+    { name = 'nvim_lsp_signature_help' },
     {
       name = 'buffer',
       option = {
@@ -84,7 +85,12 @@ return ({
           return vim.tbl_keys(bufs)
         end,
       },
+      keyword_length = 5,
     },
-    { name = 'nvim_lsp_signature_help' },
+  },
+
+  experimental = {
+    -- native_menu = false,
+    ghost_text = true,
   },
 })
