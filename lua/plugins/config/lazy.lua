@@ -48,6 +48,10 @@ M.plugins = {
   'folke/neodev.nvim',
   "nvim-telescope/telescope.nvim",
   "jose-elias-alvarez/null-ls.nvim",
+  "folke/tokyonight.nvim",
+  "folke/trouble.nvim",
+  "rmagatti/auto-session",
+  "phaazon/hop.nvim",
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -60,6 +64,13 @@ M.plugins = {
     cond = function()
       return vim.fn.executable 'make' == 1
     end,
+  },
+
+  {
+    "jvgrootveld/telescope-zoxide",
+    dependencies = {
+      "jvgrootveld/telescope-zoxide",
+    },
   },
 
   {

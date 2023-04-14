@@ -8,7 +8,7 @@ vim.opt.linebreak = true
 vim.opt.breakindent = true
 vim.opt.smartindent = true
 
-vim.opt.list = false
+-- vim.opt.list = false
 -- vim.opt.list = true
 vim.opt.listchars:append "space:⋅"
 -- vim.opt.listchars:append "tab:→"
@@ -37,7 +37,7 @@ vim.opt.splitright = true
 
 
 -- vim.api.colorscheme = catppuccin-macchiato
-vim.cmd [[colorscheme catppuccin-macchiato]]
+vim.cmd [[colorscheme tokyonight]]
 vim.api.nvim_set_option_value("colorcolumn", "79", {})
 
 -- Set completeopt to have a better completion experience

@@ -1,6 +1,6 @@
 return {
   options = {
-    theme = 'catppuccin',
+    theme = 'tokyonight',
     component_separators = '|',
     section_separators = { left = '', right = '' },
     disabled_filetypes = {'mason','lazy','NvimTree'},

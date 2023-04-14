@@ -37,12 +37,16 @@ keymap('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]e
 keymap('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 keymap('n', '<leader>sr', require('telescope.builtin').registers, { desc = '[S]earch [R]egisters' })
 keymap('n', '<leader>sm', require('telescope.builtin').marks, { desc = '[S]earch [M]arks' })
+keymap('n', '<leader>gf', require('telescope.builtin').git_files, { desc = '[G]it [F]iles' })
 keymap('n', '<leader>gst', require('telescope.builtin').git_status, { desc = '[G]it [ST]atus' })
 keymap('n', '<leader>gc', require('telescope.builtin').git_commits, { desc = '[G]it [C]ommits' })
+keymap('n', '<leader>gb', require('telescope.builtin').git_branches	, { desc = '[G]it [B]ranches' })
+keymap('n', '<leader>gsh', require('telescope.builtin').git_stash, { desc = '[G]it [S]tas[H]' })
 keymap('n', '<leader>def', require('telescope.builtin').lsp_definitions, { desc = 'LSP [DEF]initions' })
 keymap('n', '<leader>ref', require('telescope.builtin').lsp_references, { desc = 'LSP [REF]erences' })
 keymap('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[W]orkspace [S]ymbols' })
 keymap('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols, { desc = '[D]ocument [S]ymbols' })
+keymap('n', '<leader>ts', require('telescope.builtin').treesitter, { desc = '[T]ree[S]itter' })
 
 -- Window management
 keymap('n', '<C-h>', '<C-w>h', opts)

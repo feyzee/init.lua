@@ -18,6 +18,7 @@ return {
     formatter.prettier_d_slim,
     formatter.terraform_fmt,
     formatter.stylua,
+    null_ls.builtins.code_actions.gitsigns,
   },
   on_attach = function(client)
     if client.server_capabilities.document_formatting then

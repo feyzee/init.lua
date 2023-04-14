@@ -27,6 +27,38 @@ vim.lsp.protocol.CompletionItemKind = {
   ' (type)',
 }
 
+-- FIXME: use lua instead of vim.cmd
+-- Diagnostics icons
+-- vim.fn.sign_define(
+--   "LspDiagnosticsSignError",
+--   { texthl = "LspDiagnosticsSignError", text = "", numhl = "LspDiagnosticsSignError" }
+-- )
+-- vim.fn.sign_define(
+--   "LspDiagnosticsSignWarning",
+--   { texthl = "LspDiagnosticsSignWarning", text = "", numhl = "LspDiagnosticsSignWarning" }
+-- )
+-- vim.fn.sign_define(
+--   "LspDiagnosticsSignHint",
+--   { texthl = "LspDiagnosticsSignHint", text = "", numhl = "LspDiagnosticsSignHint" }
+-- )
+-- vim.fn.sign_define(
+--   "LspDiagnosticsSignInformation",
+--   { texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation" }
+-- )
+local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
+-- vim.cmd [[
+--   sign define DiagnosticSignError text= linehl= texthl=DiagnosticSignError numhl=
+--   sign define DiagnosticSignWarn text= linehl= texthl=DiagnosticSignWarn numhl=
+--   sign define DiagnosticSignInfo text=  linehl= texthl=DiagnosticSignInfo numhl=
+--   sign define DiagnosticSignHint text=   linehl= texthl=DiagnosticSignHint numhl=
+-- ]]
+
+
 local opts = { noremap = true, silent = true }
 
 -- Use an on_attach function to only map the following keys

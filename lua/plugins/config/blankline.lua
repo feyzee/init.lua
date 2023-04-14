@@ -1,8 +1,11 @@
 return {
   indentLine_enabled = 1,
+  use_treesitter = true,
   filetype_exclude = {
     "help",
     "terminal",
+    "man",
+    "checkhealth",
     "lazy",
     "lspinfo",
     "TelescopePrompt",
@@ -11,7 +14,7 @@ return {
     "NvimTree",
   },
   buftype_exclude = { "terminal" },
-  char = '┊',
+  char = '│',
   show_trailing_blankline_indent = false,
   show_first_indent_level = false,
   show_end_of_line = true,
