@@ -1,0 +1,5 @@
+return {
+  load = {
+    ["core.defaults"] = {}
+  }
+}

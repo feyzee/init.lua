@@ -11,7 +11,7 @@ return {
     "TelescopePrompt",
     "TelescopeResults",
     "mason",
-    "NvimTree",
+    -- "NvimTree",
   },
   buftype_exclude = { "terminal" },
   char = '│',

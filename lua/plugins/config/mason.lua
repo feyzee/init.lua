@@ -8,6 +8,7 @@ return {
     "python-lsp-server",
     "terraformls",
     "tflint",
+    "typescript-language-server",
     "yaml-language-server",
   },
 

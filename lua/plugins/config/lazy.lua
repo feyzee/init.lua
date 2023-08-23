@@ -52,6 +52,11 @@ M.plugins = {
   "folke/trouble.nvim",
   "rmagatti/auto-session",
   "phaazon/hop.nvim",
+  "towolf/vim-helm",
+  "someone-stole-my-name/yaml-companion.nvim",
+	"nvim-neorg/neorg",
+	"kevinhwang91/nvim-bqf",
+  "folke/todo-comments.nvim",
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -92,11 +97,12 @@ M.plugins = {
   },
 
   -- Git related plugins
-  'tpope/vim-fugitive',
+  -- 'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   'APZelos/blamer.nvim',
   'sindrets/diffview.nvim',
   'akinsho/git-conflict.nvim',
+	"TimUntersberger/neogit",
 
   {
     "lewis6991/gitsigns.nvim",

@@ -99,6 +99,7 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local lspconfig = require("lspconfig")
 local servers = {
+    "tsserver",
     "bashls",
     "dockerls",
     "gopls",
@@ -115,6 +116,15 @@ for _, lsp in ipairs(servers) do
 		capabilities = capabilities,
 	})
 end
+
+lspconfig.yamlls.setup({
+  settings = {
+    yaml = {
+      -- FIX mapKeyOrder warning
+      keyOrdering = false
+    }
+  }
+})
 
 -------------------
 

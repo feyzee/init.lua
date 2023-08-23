@@ -1,5 +1,7 @@
 local keymap = vim.keymap.set
 local opts = { noremap=true, silent=true }
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
 
 -- Leader key
 vim.g.mapleader = ' '
@@ -65,9 +67,25 @@ keymap("n", "<A-Down>", "<Esc>:m .+1<CR>==", opts)
 
 -- NvimTree
 keymap("n", "<leader>b", ":NvimTreeToggle<cr>", opts)
+keymap("n", "<leader>ntf", ":NvimTreeFocus<cr>", opts)
 keymap("n", "<leader>ntr", ":NvimTreeRefresh<cr>", opts)
 
 -- Terraform
 keymap("n", "<leader>tfi", ":!terraform init<CR>", opts)
 keymap("n", "<leader>tfv", ":!terraform validate<CR>", opts)
 keymap("n", "<leader>tfmt", ":!terraform fmt<CR>", opts)
+
+-- hop.nvim
+-- keymap('', 'f', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+-- end, {remap=true})
+-- keymap('', 'F', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+-- end, {remap=true})
+-- keymap('', 't', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+-- end, {remap=true})
+-- keymap('', 'T', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+-- end, {remap=true})
+keymap("n", "<leader>h", ":HopAnywhere<CR>", opts)
