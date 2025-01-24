@@ -4,7 +4,7 @@ local action_state = require('telescope.actions.state')
 -- local finders = require('telescope.finders')
 -- local conf = require('telescope.config').values
 -- local make_entry = require('telescope.make_entry')
-local trouble = require("trouble.providers.telescope")
+local trouble = require("trouble.sources.telescope")
 
 -- local M = {}
 
@@ -37,6 +37,9 @@ end
 
 return {
   defaults = {
+    file_ignore_patterns = {
+      "node_modules"
+    },
     sorting_strategy = 'descending',
     layout_config = { prompt_position = 'bottom' },
     prompt_prefix = ' ',
@@ -49,7 +52,7 @@ return {
         ['<C-k>'] = actions.cycle_history_prev,
         ['<CR>'] = smart_enter,
         ['<ESC>'] = actions.close,
-        ["<C-t>"] = trouble.open_with_trouble,
+        ["<C-t>"] = trouble.open,
       },
       n = {
         ["<C-p>"] = trouble.open_with_trouble,
