@@ -36,6 +36,7 @@ keymap('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]
 keymap('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 keymap('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 keymap('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+-- keymap('n', '<leader>sg', require('telescope.builtin').live_grep({search_dirs = {"."}}) , { desc = '[S]earch by Grep [C]urrent Directory' })
 keymap('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 keymap('n', '<leader>sr', require('telescope.builtin').registers, { desc = '[S]earch [R]egisters' })
 keymap('n', '<leader>sm', require('telescope.builtin').marks, { desc = '[S]earch [M]arks' })
@@ -65,10 +66,9 @@ keymap("n", "<A-Down>", "<Esc>:m .+1<CR>==", opts)
 -- File manipulation
 -- keymap("n", "<C-s>", ":w<cr>", opts)
 
--- NvimTree
-keymap("n", "<leader>b", ":NvimTreeToggle<cr>", opts)
-keymap("n", "<leader>ntf", ":NvimTreeFocus<cr>", opts)
-keymap("n", "<leader>ntr", ":NvimTreeRefresh<cr>", opts)
+-- Neotree
+keymap("n", "<leader>b", ":Neotree toggle<cr>", opts)
+keymap("n", "<leader>bf", ":Neotree focus<cr>", opts)
 
 -- Terraform
 keymap("n", "<leader>tfi", ":!terraform init<CR>", opts)
