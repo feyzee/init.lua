@@ -5,22 +5,28 @@ local M = {}
 M.plugins = {
   "williamboman/mason.nvim",
   "nvim-lua/plenary.nvim",
-  'lewis6991/impatient.nvim',
+  "lewis6991/impatient.nvim",
 
+  -- UI plugins
   {
-    'j-hui/fidget.nvim',
+    "j-hui/fidget.nvim",
+    branch = "legacy",
     opts = {
       window = {
         blend = 0,
       },
     },
   },
+  "MunifTanjim/nui.nvim",
+  "nvim-tree/nvim-web-devicons",
+  "nanozuki/tabby.nvim",
 
   -- LSP related
   "neovim/nvim-lspconfig",
-  'williamboman/mason-lspconfig.nvim',
+  "williamboman/mason-lspconfig.nvim",
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-textobjects",
+  { "towolf/vim-helm",       ft = "helm" },
 
   {
     "hrsh7th/nvim-cmp",
@@ -34,14 +40,18 @@ M.plugins = {
     },
   },
 
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x"
+  },
+  "echasnovski/mini.files",
 
   -- Other plugins
-  'nvim-lualine/lualine.nvim',
+    "folke/zen-mode.nvim",
+  "nvim-lualine/lualine.nvim",
   "numToStr/Comment.nvim",
-  'tpope/vim-sleuth',
-  'mhartington/formatter.nvim',
-  'nvim-tree/nvim-web-devicons',
-  "lukas-reineke/indent-blankline.nvim",
+  -- 'tpope/vim-sleuth',
+  "mhartington/formatter.nvim",
   "windwp/nvim-autopairs",
   "folke/which-key.nvim",
   "nvim-tree/nvim-tree.lua",
@@ -57,6 +67,13 @@ M.plugins = {
 	"nvim-neorg/neorg",
 	"kevinhwang91/nvim-bqf",
   "folke/todo-comments.nvim",
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    -- main = "ibl",
+    version = "2.20.8",
+    opts = {}
+  },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -94,6 +111,27 @@ M.plugins = {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+  },
+
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  },
+
+  {
+    's1n7ax/nvim-window-picker',
+    name = 'window-picker',
+    event = 'VeryLazy',
+    version = '2.*',
+    config = function()
+        require'window-picker'.setup()
+    end,
   },
 
   -- Git related plugins
