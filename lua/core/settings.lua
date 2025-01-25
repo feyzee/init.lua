@@ -35,6 +35,14 @@ vim.opt.cursorline = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
+-- fold
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldcolumn = "0"
+vim.opt.foldtext = ""
+vim.opt.foldlevel = 99
+-- vim.opt.foldlevelstart = 99
+-- vim.opt.nofoldenable = true
 
 -- vim.api.colorscheme = catppuccin-macchiato
 vim.cmd [[colorscheme tokyonight]]

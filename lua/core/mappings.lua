@@ -15,6 +15,10 @@ keymap({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Fold related keymaps
+keymap('n', '+', ":foldopen<CR>", { desc = "Open code fold" })
+keymap('n', '-', ":foldclose<CR>", { desc = "Close code fold" })
+
 -- Diagnostic keymaps
 keymap('n', '[d', vim.diagnostic.goto_prev)
 keymap('n', ']d', vim.diagnostic.goto_next)
@@ -22,6 +26,7 @@ keymap('n', '<leader>e', vim.diagnostic.open_float)
 keymap('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- Telescope. See `:help telescope.builtin`
+keymap('n', '<leader>-', ":Telescope file_browser<CR>", { desc = 'Open File Browser' })
 keymap('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 keymap('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 keymap('n', '<leader>/', function()

@@ -5,7 +5,6 @@ return {
     'dockerfile',
     'go',
     'hcl',
-    'help',
     'html',
     'javascript',
     'json',

@@ -3,6 +3,7 @@
 local M = {}
 
 M.plugins = {
+  -- plugins that are dependencies
   "williamboman/mason.nvim",
   "nvim-lua/plenary.nvim",
   "lewis6991/impatient.nvim",
@@ -20,14 +21,14 @@ M.plugins = {
   "MunifTanjim/nui.nvim",
   "nvim-tree/nvim-web-devicons",
   "nanozuki/tabby.nvim",
+  { "catppuccin/nvim", name = "catppuccin", },
 
   -- LSP related
   "neovim/nvim-lspconfig",
   "williamboman/mason-lspconfig.nvim",
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-textobjects",
-  { "towolf/vim-helm",       ft = "helm" },
-
+  { "towolf/vim-helm", ft = "helm" },
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -40,6 +41,7 @@ M.plugins = {
     },
   },
 
+  -- file management
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x"
@@ -51,13 +53,12 @@ M.plugins = {
   "nvim-lualine/lualine.nvim",
   "numToStr/Comment.nvim",
   -- 'tpope/vim-sleuth',
-  "mhartington/formatter.nvim",
+  'mhartington/formatter.nvim',
   "windwp/nvim-autopairs",
   "folke/which-key.nvim",
   "nvim-tree/nvim-tree.lua",
-  'folke/neodev.nvim',
   "nvim-telescope/telescope.nvim",
-  "jose-elias-alvarez/null-ls.nvim",
+  -- "jose-elias-alvarez/null-ls.nvim",
   "folke/tokyonight.nvim",
   "folke/trouble.nvim",
   "rmagatti/auto-session",
@@ -67,12 +68,19 @@ M.plugins = {
 	"nvim-neorg/neorg",
 	"kevinhwang91/nvim-bqf",
   "folke/todo-comments.nvim",
+  { "lukas-reineke/indent-blankline.nvim", version = "2.20.8", },
 
+  -- plugins for Lua
   {
-    "lukas-reineke/indent-blankline.nvim",
-    -- main = "ibl",
-    version = "2.20.8",
-    opts = {}
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
   },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -88,30 +96,17 @@ M.plugins = {
     end,
   },
 
-  {
-    "jvgrootveld/telescope-zoxide",
-    dependencies = {
-      "jvgrootveld/telescope-zoxide",
-    },
-  },
+  { "jvgrootveld/telescope-zoxide", dependencies = { "jvgrootveld/telescope-zoxide", }, },
 
-  {
-    "L3MON4D3/LuaSnip",
-    dependencies = "rafamadriz/friendly-snippets",
-  },
+  { "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets", },
 
-  {
-    "SmiteshP/nvim-navbuddy",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim"
-    },
-  },
-
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-  },
+  -- {
+  --   "SmiteshP/nvim-navbuddy",
+  --   dependencies = {
+  --     "SmiteshP/nvim-navic",
+  --     "MunifTanjim/nui.nvim"
+  --   },
+  -- },
 
   {
     "kylechui/nvim-surround",
@@ -141,7 +136,6 @@ M.plugins = {
   'sindrets/diffview.nvim',
   'akinsho/git-conflict.nvim',
 	"TimUntersberger/neogit",
-
   {
     "lewis6991/gitsigns.nvim",
     ft = "gitcommit",
