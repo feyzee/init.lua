@@ -1,5 +1,5 @@
-local lazy_plugins = require("plugins.config.lazy").plugins
-local lazy_options = require("plugins.config.lazy").options
+local lazy_plugins = require("plugins.lazy_plugins")
+local lazy_options = require("plugins.lazy_options")
 
 -- Plugin managers initialization
 require("lazy").setup(lazy_plugins, lazy_options)
@@ -24,6 +24,7 @@ require("which-key").setup(require("plugins.config.which-key"))
 require("nvim-autopairs").setup(require("plugins.config.nvim-autopairs"))
 -- require("nvim-tree").setup(require("plugins.config.nvimtree"))
 require("neo-tree").setup(require("plugins.config.neotree"))
+require("noice").setup(require("plugins.config.noice"))
 require("mini.files").setup()
 -- require("nvim-navbuddy").setup(require("plugins.config.nvimtree"))
 require("catppuccin").setup(require("plugins.config.catppuccin"))

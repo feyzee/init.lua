@@ -80,6 +80,9 @@ keymap("n", "<leader>tfi", ":!terraform init<CR>", opts)
 keymap("n", "<leader>tfv", ":!terraform validate<CR>", opts)
 keymap("n", "<leader>tfmt", ":!terraform fmt<CR>", opts)
 
+-- git 
+keymap("n", "<leader>lg", "<cmd>LazyGit<CR>", opts)
+
 -- hop.nvim
 -- keymap('', 'f', function()
 --   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })

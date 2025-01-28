@@ -1,8 +1,6 @@
 -- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
 -- List of all default plugins & their definitions
-local M = {}
-
-M.plugins = {
+return {
   -- plugins that are dependencies
   "williamboman/mason.nvim",
   "nvim-lua/plenary.nvim",
@@ -21,6 +19,8 @@ M.plugins = {
   "MunifTanjim/nui.nvim",
   "nvim-tree/nvim-web-devicons",
   "nanozuki/tabby.nvim",
+  "nvim-lualine/lualine.nvim",
+  "folke/tokyonight.nvim",
   { "catppuccin/nvim", name = "catppuccin", },
 
   -- LSP related
@@ -49,26 +49,89 @@ M.plugins = {
   "echasnovski/mini.files",
 
   -- Other plugins
-    "folke/zen-mode.nvim",
-  "nvim-lualine/lualine.nvim",
-  "numToStr/Comment.nvim",
+  "folke/zen-mode.nvim",
   -- 'tpope/vim-sleuth',
   'mhartington/formatter.nvim',
-  "windwp/nvim-autopairs",
   "folke/which-key.nvim",
   "nvim-tree/nvim-tree.lua",
   "nvim-telescope/telescope.nvim",
   -- "jose-elias-alvarez/null-ls.nvim",
-  "folke/tokyonight.nvim",
-  "folke/trouble.nvim",
   "rmagatti/auto-session",
   "phaazon/hop.nvim",
   "towolf/vim-helm",
   "someone-stole-my-name/yaml-companion.nvim",
 	"nvim-neorg/neorg",
 	"kevinhwang91/nvim-bqf",
+  {
+    "otavioschwanck/arrow.nvim",
+    -- dependencies = {
+    --   { "nvim-tree/nvim-web-devicons" },
+    -- },
+    opts = {
+      show_icons = true,
+      leader_key = ';', -- Recommended to be a single key
+      buffer_leader_key = 'm', -- Per Buffer Mappings
+    }
+  },
+  {
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
+  },
+
+  -- text manipulation
+  "windwp/nvim-autopairs",
+  "numToStr/Comment.nvim",
   "folke/todo-comments.nvim",
+  { 'echasnovski/mini.surround', version = '*' },
   { "lukas-reineke/indent-blankline.nvim", version = "2.20.8", },
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- add any options here
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
+			}
+	},
 
   -- plugins for Lua
   {
@@ -137,6 +200,20 @@ M.plugins = {
   'akinsho/git-conflict.nvim',
 	"TimUntersberger/neogit",
   {
+    "kdheepak/lazygit.nvim",
+    lazy = true,
+    cmd = {
+        "LazyGit",
+        "LazyGitConfig",
+        "LazyGitCurrentFile",
+        "LazyGitFilter",
+        "LazyGitFilterCurrentFile",
+    },
+    keys = {
+        { "<leader>ll", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    }
+  },
+  {
     "lewis6991/gitsigns.nvim",
     ft = "gitcommit",
     init = function()
@@ -156,52 +233,3 @@ M.plugins = {
     end,
   },
 }
-
-M.options = {
-  defaults = { lazy = true },
-
-  ui = {
-    icons = {
-      ft = "",
-      lazy = "鈴 ",
-      loaded = "",
-      not_loaded = "",
-    },
-  },
-
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        "2html_plugin",
-        "tohtml",
-        "getscript",
-        "getscriptPlugin",
-        "gzip",
-        "logipat",
-        "netrw",
-        "netrwPlugin",
-        "netrwSettings",
-        "netrwFileHandlers",
-        "matchit",
-        "tar",
-        "tarPlugin",
-        "rrhelper",
-        "spellfile_plugin",
-        "vimball",
-        "vimballPlugin",
-        "zip",
-        "zipPlugin",
-        "tutor",
-        "rplugin",
-        "syntax",
-        "synmenu",
-        "optwin",
-        "compiler",
-        "bugreport",
-        "ftplugin",
-      },
-    },
-  },
-}
-
-return M
