@@ -13,6 +13,10 @@ vim.opt.smartindent = true
 vim.opt.listchars:append "space:⋅"
 -- vim.opt.listchars:append "tab:→"
 vim.opt.listchars:append "eol:↴"
+-- vim.opt.fillchars = {
+--   stl = " ",
+--   stlnc = " ",
+-- }
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
