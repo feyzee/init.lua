@@ -16,12 +16,111 @@ return {
       },
     },
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    -- ---@module "ibl"
+    -- ---@type ibl.config
+    -- opts = {},
+  },
   "MunifTanjim/nui.nvim",
-  "nvim-tree/nvim-web-devicons",
-  "nanozuki/tabby.nvim",
   "nvim-lualine/lualine.nvim",
   "folke/tokyonight.nvim",
   { "catppuccin/nvim", name = "catppuccin", },
+
+  -- language
+	{
+		"ray-x/go.nvim",
+		dependencies = {  -- optional packages
+			"ray-x/guihua.lua",
+			"neovim/nvim-lspconfig",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("go").setup()
+		end,
+		event = {"CmdlineEnter"},
+		ft = {"go", 'gomod'},
+		build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+	},
+
+  -- debugging
+  -- Debug adapter plug-in. Debug anything in Neovim
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      vim.keymap.set("n", "<leader>d<space>", ":DapContinue<CR>")
+      vim.keymap.set("n", "<leader>dl", ":DapStepInto<CR>")
+      vim.keymap.set("n", "<leader>dj", ":DapStepOver<CR>")
+      vim.keymap.set("n", "<leader>dh", ":DapStepOut<CR>")
+      vim.keymap.set("n", "<leader>dz", ":ZoomWinTabToggle<CR>")
+      vim.keymap.set(
+          "n",
+          "<leader>dgt",  -- dg as in debu[g] [t]race
+          ":lua require('dap').set_log_level('TRACE')<CR>"
+      )
+      vim.keymap.set(
+          "n",
+          "<leader>dge",  -- dg as in debu[g] [e]dit
+          function()
+              vim.cmd(":edit " .. vim.fn.stdpath('cache') .. "/dap.log")
+          end
+      )
+      vim.keymap.set("n", "<F1>", ":DapStepOut<CR>")
+      vim.keymap.set("n", "<F2>", ":DapStepOver<CR>")
+      vim.keymap.set("n", "<F3>", ":DapStepInto<CR>")
+      vim.keymap.set(
+          "n",
+          "<leader>d-",
+          function()
+              require("dap").restart()
+          end
+      )
+      vim.keymap.set(
+          "n",
+          "<leader>d_",
+          function()
+              require("dap").terminate()
+              require("dapui").close()
+          end
+      )
+    end,
+    lazy = true,
+  },
+
+  -- A default "GUI" front-end for nvim-dap
+  {
+    "rcarriga/nvim-dap-ui",
+    config = function()
+      require("dapui").setup()
+
+    -- Note: Added this <leader>dd duplicate of <F5> because somehow the <F5>
+    -- mapping keeps getting reset each time I restart nvim-dap. Annoying but whatever.
+    --
+    vim.keymap.set(
+      "n",
+      "<leader>dd",
+      function()
+          require("dapui").open()  -- Requires nvim-dap-ui
+
+          vim.cmd[[DapContinue]]  -- Important: This will lazy-load nvim-dap
+      end
+    )
+    end,
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+  },
+  -- Remember nvim-dap breakpoints between sessions, ``:PBToggleBreakpoint``
+  {
+    "Weissle/persistent-breakpoints.nvim",
+    config = function()
+      require("persistent-breakpoints").setup{
+        load_breakpoints_event = { "BufReadPost" }
+      }
+      vim.keymap.set("n", "<leader>db", ":PBToggleBreakpoint<CR>")
+    end,
+  },
 
   -- LSP related
   "neovim/nvim-lspconfig",
@@ -86,10 +185,8 @@ return {
   -- 'tpope/vim-sleuth',
   'mhartington/formatter.nvim',
   "folke/which-key.nvim",
-  "nvim-tree/nvim-tree.lua",
   "nvim-telescope/telescope.nvim",
   -- "jose-elias-alvarez/null-ls.nvim",
-  "rmagatti/auto-session",
   "phaazon/hop.nvim",
   "towolf/vim-helm",
   "someone-stole-my-name/yaml-companion.nvim",
@@ -139,7 +236,6 @@ return {
   "numToStr/Comment.nvim",
   "folke/todo-comments.nvim",
   { 'echasnovski/mini.surround', version = '*' },
-  { "lukas-reineke/indent-blankline.nvim", version = "2.20.8", },
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -184,16 +280,7 @@ return {
 
   { "jvgrootveld/telescope-zoxide", dependencies = { "jvgrootveld/telescope-zoxide", }, },
 
-  { "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets", },
-
-  -- {
-  --   "SmiteshP/nvim-navbuddy",
-  --   dependencies = {
-  --     "SmiteshP/nvim-navic",
-  --     "MunifTanjim/nui.nvim"
-  --   },
-  -- },
-
+  -- { "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets", },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
