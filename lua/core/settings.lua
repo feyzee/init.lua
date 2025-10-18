@@ -41,11 +41,11 @@ vim.opt.splitright = true
 
 -- fold
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldcolumn = "0"
 vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
--- vim.opt.foldlevelstart = 99
+vim.opt.foldlevelstart = 99
 -- vim.opt.nofoldenable = true
 
 -- vim.api.colorscheme = catppuccin-macchiato
@@ -86,4 +86,15 @@ vim.api.nvim_create_autocmd({ "BufWritePre", "BufNewFile" }, {
 vim.api.nvim_create_autocmd({ "BufWritePre", "BufNewFile" }, {
   pattern = { "*.tfstate", "*.tfstate.backup" },
   command = "set filetype=json"
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  callback = function()
+    if require("nvim-treesitter.parsers").has_parser() then
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+    else
+      vim.opt.foldmethod = "syntax"
+    end
+  end,
 })

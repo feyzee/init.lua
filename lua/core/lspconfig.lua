@@ -1,3 +1,8 @@
+-- set log level to warn
+-- vim.lsp.set_log_level("off")
+vim.lsp.set_log_level("WARN")
+
+
 -- export on_attach & capabilities for custom lspconfigs
 vim.lsp.protocol.CompletionItemKind = {
   ' (text)',
@@ -93,8 +98,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local lspconfig = require("lspconfig")
