@@ -103,13 +103,12 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protoc
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local lspconfig = require("lspconfig")
 local servers = {
-    "tsserver",
+    "ts_ls",
     "bashls",
     "dockerls",
     "gopls",
     "lua_ls",
     "pylsp",
-    -- "python-lsp-server",
     "terraformls",
     "tflint",
     "yamlls",
