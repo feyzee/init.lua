@@ -1,9 +1,7 @@
 -- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
 -- List of all default plugins & their definitions
 return {
-  -- plugins that are dependencies
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
+  -- Dependencies
   "nvim-lua/plenary.nvim",
   "lewis6991/impatient.nvim",
 
@@ -28,18 +26,20 @@ return {
   "nvim-lualine/lualine.nvim",
   "folke/tokyonight.nvim",
   { "catppuccin/nvim", name = "catppuccin", },
+  {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- or if using mini.icons/mini.nvim
+    -- dependencies = { "nvim-mini/mini.icons" },
+    opts = {}
+  },
 
   -- LSP and languages
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-textobjects",
-  "neovim/nvim-lspconfig",
+  -- "neovim/nvim-lspconfig",
   { "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets", },
-  -- 'fei6409/log-highlight.nvim',
-  {
-    'fei6409/log-highlight.nvim',
-    opts = {},
-  },
-  -- "fatih/vim-go",
   {
     "ray-x/go.nvim",
     dependencies = { "ray-x/guihua.lua", },
@@ -80,40 +80,6 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x"
   },
-  "echasnovski/mini.files",
-  {
-    "mikavilpas/yazi.nvim",
-    event = "VeryLazy",
-    keys = {
-      -- 👇 in this section, choose your own keymappings!
-      {
-        "<leader>-",
-        mode = { "n", "v" },
-        "<cmd>Yazi<cr>",
-        desc = "Open yazi at the current file",
-      },
-      {
-        -- Open in the current working directory
-        "<leader>cw",
-        "<cmd>Yazi cwd<cr>",
-        desc = "Open the file manager in nvim's working directory",
-      },
-      {
-        -- NOTE: this requires a version of yazi that includes
-        -- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
-        "<c-up>",
-        "<cmd>Yazi toggle<cr>",
-        desc = "Resume the last yazi session",
-      },
-    },
-    opts = {
-      -- if you want to open yazi instead of netrw, see below for more info
-      open_for_directories = false,
-      keymaps = {
-        show_help = "<f1>",
-      },
-    },
-  },
 
   -- Other plugins
 
@@ -122,14 +88,25 @@ return {
   -- 'tpope/vim-sleuth',
   'mhartington/formatter.nvim',
   "folke/which-key.nvim",
-  "nvim-telescope/telescope.nvim",
+  -- "nvim-telescope/telescope.nvim",
+  -- { "jvgrootveld/telescope-zoxide", dependencies = { "jvgrootveld/telescope-zoxide", }, },
+  -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+  -- Only load if `make` is available. Make sure you have the system
+  -- requirements installed.
+  -- {
+  --   'nvim-telescope/telescope-fzf-native.nvim',
+  --   -- NOTE: If you are having trouble with this installation,
+  --   --       refer to the README for telescope-fzf-native for more instructions.
+  --   build = 'make',
+  --   cond = function()
+  --     return vim.fn.executable 'make' == 1
+  --   end,
+  -- },
+
   -- "jose-elias-alvarez/null-ls.nvim",
   "phaazon/hop.nvim",
-  "towolf/vim-helm",
-  "someone-stole-my-name/yaml-companion.nvim",
-	"nvim-neorg/neorg",
-	"kevinhwang91/nvim-bqf",
-  "otavioschwanck/arrow.nvim",
+	-- "nvim-neorg/neorg",
+	-- "kevinhwang91/nvim-bqf",
   {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -172,7 +149,17 @@ return {
   "windwp/nvim-autopairs",
   "numToStr/Comment.nvim",
   "folke/todo-comments.nvim",
-  { 'echasnovski/mini.surround', version = '*' },
+  -- { 'echasnovski/mini.surround', version = '*' },
+  -- {
+  --   "kylechui/nvim-surround",
+  --   version = "*", -- Use for stability; omit to use `main` branch for the latest features
+  --   event = "VeryLazy",
+  --   config = function()
+  --       require("nvim-surround").setup({
+  --           -- Configuration here, or leave empty to use defaults
+  --       })
+  --   end
+  -- },
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -202,42 +189,6 @@ return {
     },
   },
 
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-  -- Only load if `make` is available. Make sure you have the system
-  -- requirements installed.
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    -- NOTE: If you are having trouble with this installation,
-    --       refer to the README for telescope-fzf-native for more instructions.
-    build = 'make',
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
-
-  { "jvgrootveld/telescope-zoxide", dependencies = { "jvgrootveld/telescope-zoxide", }, },
-
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-        require("nvim-surround").setup({
-            -- Configuration here, or leave empty to use defaults
-        })
-    end
-  },
-
-  {
-    's1n7ax/nvim-window-picker',
-    name = 'window-picker',
-    event = 'VeryLazy',
-    version = '2.*',
-    config = function()
-        require'window-picker'.setup()
-    end,
-  },
-
   -- Git related plugins
   -- 'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -245,20 +196,6 @@ return {
   'sindrets/diffview.nvim',
   'akinsho/git-conflict.nvim',
 	"TimUntersberger/neogit",
-  {
-    "kdheepak/lazygit.nvim",
-    lazy = true,
-    cmd = {
-        "LazyGit",
-        "LazyGitConfig",
-        "LazyGitCurrentFile",
-        "LazyGitFilter",
-        "LazyGitFilterCurrentFile",
-    },
-    keys = {
-        { "<leader>ll", "<cmd>LazyGit<cr>", desc = "LazyGit" }
-    }
-  },
   {
     "lewis6991/gitsigns.nvim",
     ft = "gitcommit",
