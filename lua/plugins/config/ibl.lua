@@ -1,0 +1,3 @@
+return {
+  scope = { enabled = true },
+}

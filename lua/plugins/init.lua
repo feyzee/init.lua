@@ -7,7 +7,8 @@ require("mason").setup(require("plugins.config.mason"))
 
 -- Plugins initialization
 require("nvim-treesitter.configs").setup(require("plugins.config.treesitter"))
---require("luasnip").setup("plugins.config.luasnip") -- luasnip needs to be invoked before cmp.
+require("luasnip").setup() -- luasnip needs to be invoked before cmp.
+-- require("luasnip").setup("plugins.config.luasnip") -- luasnip needs to be invoked before cmp.
 require("cmp").setup(require("plugins.config.cmp"))
 require("telescope").setup(require("plugins.config.telescope"))
 require("telescope").load_extension("zoxide")

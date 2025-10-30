@@ -20,9 +20,9 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    -- ---@module "ibl"
-    -- ---@type ibl.config
-    -- opts = {},
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
   },
   "MunifTanjim/nui.nvim",
   "nvim-lualine/lualine.nvim",
@@ -33,6 +33,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-textobjects",
   "neovim/nvim-lspconfig",
+  { "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets", },
   -- 'fei6409/log-highlight.nvim',
   {
     'fei6409/log-highlight.nvim',
@@ -216,7 +217,6 @@ return {
 
   { "jvgrootveld/telescope-zoxide", dependencies = { "jvgrootveld/telescope-zoxide", }, },
 
-  -- { "L3MON4D3/LuaSnip", dependencies = "rafamadriz/friendly-snippets", },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
