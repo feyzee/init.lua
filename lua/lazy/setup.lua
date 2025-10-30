@@ -1,8 +1,4 @@
-local lazy_plugins = require("plugins.lazy_plugins")
-local lazy_options = require("plugins.lazy_options")
-
 -- Plugin managers initialization
-require("lazy").setup(lazy_plugins, lazy_options)
 require("mason").setup(require("plugins.config.mason"))
 
 -- Plugins initialization
