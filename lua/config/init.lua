@@ -1,5 +1,5 @@
 require("config.lspconfig")
 require("config.mappings")
-require("config.autoformat")
+-- require("config.autoformat")
 require("config.autocmds")
 require("config.settings")

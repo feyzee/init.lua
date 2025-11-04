@@ -1,7 +1,7 @@
 -- Plugins initialization
 require("nvim-treesitter.configs").setup(require("plugins.config.treesitter"))
 require("luasnip").setup() -- luasnip needs to be invoked before cmp.
-require("cmp").setup(require("plugins.config.cmp"))
+require("cmp").setup(require("plugins.config.compl"))
 require("fzf-lua").setup()
 -- require("null-ls").setup(require("plugins.config.null-ls"))
 require("fidget").setup()
