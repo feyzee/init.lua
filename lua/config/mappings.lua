@@ -38,7 +38,7 @@ keymap('n', '<leader>q', vim.diagnostic.setloclist)
 -- Fzf-Lua
 keymap('n', '<leader><space>', require("fzf-lua").buffers, { desc = '[ ] Find existing buffers' })
 keymap('n', '<leader>f', require("fzf-lua").files, { desc = 'Search [F]iles' })
-keymap('n', '<leader>g', require("fzf-lua").live_grep, { desc = 'Search by [G]rep' })
+keymap('n', '<leader>s', require("fzf-lua").live_grep, { desc = '[S]earch by Grep' })
 keymap('n', '<leader>/', require("fzf-lua").grep_curbuf, { desc = 'Grep in current buffer' })
 keymap('n', '<leader>ww', require("fzf-lua").grep_cword, { desc = 'Grep Words under cursor' })
 keymap('v', '<leader>vw', require("fzf-lua").grep_visual, { desc = 'Grep Words selected using Visual Mode' })
