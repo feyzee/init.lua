@@ -2,7 +2,7 @@
 require("nvim-treesitter.configs").setup(require("plugins.config.treesitter"))
 require("luasnip").setup() -- luasnip needs to be invoked before cmp.
 -- require("cmp").setup(require("plugins.config.compl"))
-require("blink.cmp").setup(require("plugins.config.blink"))
+require("blink.cmp").setup(require("plugins.config.blink-cmp"))
 require("fzf-lua").setup()
 -- require("null-ls").setup(require("plugins.config.null-ls"))
 require("fidget").setup()
@@ -22,3 +22,4 @@ require("hop").setup()
 require("todo-comments").setup(require("plugins.config.todo-comments"))
 -- require("zen-mode").setup(require("plugins.config.zen-mode"))
 require("go").setup()
+require("lazydev").setup()
