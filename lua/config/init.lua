@@ -1,3 +1,4 @@
+require("config.lazy")
 require("config.lspconfig")
 require("config.mappings")
 require("config.autocmds")
