@@ -1,3 +1,4 @@
+return {}
 -- local completion_menu = {
 --   nvim_lsp = '[LSP]',
 --   buffer = '[﬘]',

@@ -24,7 +24,7 @@ vim.o.smartcase = true
 vim.o.incsearch = true
 vim.o.hidden = true
 vim.o.updatetime = 250
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = "yes"
 vim.o.termguicolors = true
 vim.o.hlsearch = false
 vim.o.cursorline = true
@@ -38,14 +38,13 @@ vim.o.foldcolumn = "0"
 vim.o.foldtext = ""
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
-vim.o.foldmethod = 'expr'
--- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- NOTE: Fold method defaults to treesitter
+-- if LSP folding is available it's preferred
+vim.o.foldmethod = "expr"
 
-
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd([[colorscheme tokyonight]])
 vim.api.nvim_set_option_value("colorcolumn", "79", {})
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = "menuone,noselect"
 vim.o.timeoutlen = 500
