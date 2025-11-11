@@ -1,53 +1,55 @@
 -- LSP related
-
-vim.api.nvim_create_augroup("lspconfigs", {})
-
--- Auto-format ("lint") on save.
+-- LspAttach autocmd for buffer-local settings
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = "lspconfigs",
-  callback = function(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-    if
-        not client:supports_method("textDocument/willSaveWaitUntil")
-        and client:supports_method("textDocument/formatting")
-    then
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = vim.api.nvim_create_augroup("my.lsp", { clear = false }),
-        buffer = args.buf,
-        callback = function()
-          vim.lsp.buf.format({ async = false, bufnr = args.buf, id = client.id, timeout_ms = 1000 })
+  group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if not client then return end
+
+    -- Enable inlay hints if supported
+    if client:supports_method("textDocument/inlayHint") then
+      vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+
+      vim.keymap.set("n", "<leader>cl", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }), { bufnr = event.buf })
+      end, { desc = "Toggle Inlay Hints" })
+    end
+
+    -- Enable document highlight if supported
+    if client:supports_method("textDocument/documentHighlight") then
+      local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        buffer = event.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.document_highlight,
+      })
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        buffer = event.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.clear_references,
+      })
+      vim.api.nvim_create_autocmd("LspDetach", {
+        group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+        callback = function(event2)
+          vim.lsp.buf.clear_references()
+          vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
         end,
       })
     end
-  end,
-})
 
--- Inlay hints
--- vim.api.nvim_create_autocmd("LspAttach", {
---   group = "lspconfigs",
---   -- callback = function(args)
---   --   if not (args.data and args.data.client_id) then
---   --     return
---   --   end
---   --
---   --   local bufnr = args.buf
---   --   local client = vim.lsp.get_client_by_id(args.data.client_id)
---   --   require("lsp-inlayhints").on_attach(client, bufnr)
---   -- end,
---
---   callback = function(args)
---     if vim.lsp.inlay_hint.is_enabled(args.bufnr) then
---       vim.lsp.inlay_hint.enable(true, bufnr)
---     end
---   end,
--- })
+    -- Enable codelens if supported
+    if client:supports_method("textDocument/codeLens") then
+      vim.lsp.codelens.refresh({ bufnr = event.buf })
+      vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+        buffer = event.buf,
+        callback = function()
+          vim.lsp.codelens.refresh({ bufnr = event.buf })
+        end,
+      })
+    end
 
--- Prefer LSP folding if client supports it
--- else switch to  folding via treesitter or by syntax
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = "lspconfigs",
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    -- Prefer LSP folding if client supports it
+    -- else switch to  folding via treesitter or by syntax
     if client:supports_method("textDocument/foldingRange") then
       local win = vim.api.nvim_get_current_win()
       vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
@@ -57,27 +59,29 @@ vim.api.nvim_create_autocmd("LspAttach", {
     else
       vim.opt.foldmethod = "syntax"
     end
+
+    -- Auto-format ("lint") on save.
+    if
+        not client:supports_method("textDocument/willSaveWaitUntil")
+        and client:supports_method("textDocument/formatting")
+    then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = vim.api.nvim_create_augroup("my.lsp", { clear = false }),
+        buffer = event.buf,
+        callback = function()
+          vim.lsp.buf.format({ async = false, bufnr = event.buf, id = client.id, timeout_ms = 1000 })
+        end,
+      })
+    end
   end,
 })
 
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---   callback = function()
---     if require("nvim-treesitter.parsers").has_parser() then
---       vim.opt.foldmethod = "expr"
---       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
---     else
---       vim.opt.foldmethod = "syntax"
---     end
---   end,
--- })
-
 -- Highlight on yank
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
   callback = function()
     vim.highlight.on_yank()
   end,
-  group = highlight_group,
   pattern = "*",
 })
 
@@ -122,45 +126,3 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     vim.opt_local.cursorline = false
   end,
 })
-
--- ide like highlight when stopping cursor
-vim.api.nvim_create_autocmd("CursorMoved", {
-  group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
-  desc = "Highlight references under cursor",
-  callback = function()
-    -- Only run if the cursor is not in insert mode
-    if vim.fn.mode() ~= "i" then
-      local clients = vim.lsp.get_clients({ bufnr = 0 })
-      local supports_highlight = false
-      for _, client in ipairs(clients) do
-        if client.server_capabilities.documentHighlightProvider then
-          supports_highlight = true
-          break -- Found a supporting client, no need to check others
-        end
-      end
-
-      -- 3. Proceed only if an LSP is active AND supports the feature
-      if supports_highlight then
-        vim.lsp.buf.clear_references()
-        vim.lsp.buf.document_highlight()
-      end
-    end
-  end,
-})
-vim.api.nvim_create_autocmd("CursorMovedI", {
-  group = "LspReferenceHighlight",
-  desc = "Clear highlights when entering insert mode",
-  callback = function()
-    vim.lsp.buf.clear_references()
-  end,
-})
-
--- Highlight trailing whitespace
--- vim.api.nvim_set_hl(0, "TrailingWhitespace", { bg = "LightRed" })
--- vim.api.nvim_create_autocmd("BufEnter", {
--- 	pattern = "*",
--- 	command = [[
---     syntax clear TrailingWhitespace |
---     syntax match TrailingWhitespace "\_s\+$"
---   ]],
--- })

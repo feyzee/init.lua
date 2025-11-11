@@ -1,52 +1,77 @@
+-- Diagnostic Configs
 local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
 
-local servers = {
-	"bashls",
-	"cue",
-	"golangci_lint_ls",
-	"gopls",
-	"helm_ls",
-	"lua_ls",
-	"ruff",
-	"rust_analyzer",
-	"terraformls",
-	"tflint",
-	"ts_ls",
-	"yamlls",
-}
+-- for type, icon in pairs(signs) do
+--   local hl = "DiagnosticSign" .. type
+--   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+-- end
 
--- export on_attach & capabilities for custom lspconfigs
-vim.lsp.protocol.CompletionItemKind = {
-	" (text)",
-	" (method)",
-	"󰊕 (function)",
-	" (constructor)",
-	"ﰠ (field)",
-	"󰫧 (variable)",
-	" (class)",
-	" (interface)",
-	" (module)",
-	" (property)",
-	" (unit)",
-	" (value)",
-	" (enum)",
-	" (key)",
-	" (snippet)",
-	" (color)",
-	" (file)",
-	" (reference)",
-	" (folder)",
-	" (enum member)",
-	" (constant)",
-	" (struct)",
-	" (event)",
-	" (operator)",
-	" (type)",
+vim.diagnostic.config({
+  float = {
+    border = "rounded",
+    source = true,
+  },
+
+  severity_sort = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = signs.Error,
+      [vim.diagnostic.severity.WARN] = signs.Warn,
+      [vim.diagnostic.severity.HINT] = signs.Hint,
+      [vim.diagnostic.severity.INFO] = signs.Information,
+    },
+  },
+
+  virtual_text = {
+    spacing = 4,
+    source = "if_many",
+    prefix = "●",
+  },
+
+  underline = true,
+  update_in_insert = false,
+})
+
+-- Global LSP configuration for all servers
+vim.lsp.config("*", {
+  capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = true,
+          resolveSupport = {
+            properties = { "documentation", "detail", "additionalTextEdits" },
+          },
+        },
+      },
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      },
+    },
+    workspace = {
+      fileOperations = {
+        didRename = true,
+        willRename = true,
+      },
+    },
+  },
+})
+
+-- List of language servers to enable
+local servers = {
+  "bashls",
+  "cue",
+  "golangci_lint_ls",
+  "gopls",
+  "helm_ls",
+  "lua_ls",
+  "ruff",
+  "rust_analyzer",
+  "terraformls",
+  "tflint",
+  "ts_ls",
+  "yamlls",
 }
 
 vim.lsp.enable(servers)
-
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
