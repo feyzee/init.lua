@@ -1,5 +1,5 @@
 -- LSP related
--- LspAttach autocmd for buffer-local settings
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
   callback = function(event)
@@ -58,6 +58,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
     else
       vim.opt.foldmethod = "syntax"
+    end
+
+    -- Disable semantic tokens for large files
+    if vim.api.nvim_buf_line_count(event.buf) > 5000 then
+      client.server_capabilities.semanticTokensProvider = nil
     end
 
     -- Auto-format ("lint") on save.
