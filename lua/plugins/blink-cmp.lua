@@ -1,6 +1,6 @@
 -- local appearance = require("blink.cmp.config.appearance")
 
-local completion_kinds = {
+local completion_kinds = { -- NOTE: remove if not needed
   Array = " ",
   Boolean = "󰨙 ",
   Class = " ",
@@ -69,11 +69,12 @@ return {
   opts = {
     appearance = {
       nerd_font_variant = "mono",
-      kind_icons = completion_kinds,
+      -- kind_icons = completion_kinds, NOTE: remove if not needed
     },
 
     fuzzy = { implementation = "prefer_rust_with_warning" },
 
+    -- TODO: move below config to keymaps.lua
     keymap = {
       preset = "default",
       ["<A-]>"] = { "snippet_forward", "fallback" },
@@ -91,7 +92,7 @@ return {
       ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
     },
 
-    -- Disable cmdline
+    -- Enable completion in cmdline
     cmdline = { enabled = true },
 
     completion = {
@@ -106,7 +107,7 @@ return {
       keyword = { range = "full" },
 
       list = {
-        max_items = 25,
+        max_items = 50,
         selection = {
           preselect = false,
           auto_insert = true,
@@ -185,6 +186,11 @@ return {
           max_items = 7,
           min_keyword_length = nil,
           score_offset = 100,
+
+          opts = {
+            show_signature_help = true,
+            resolve_timeout_ms = 100,
+          },
         },
 
         path = {
