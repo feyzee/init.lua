@@ -25,17 +25,15 @@ keymap("n", "gy", vim.lsp.buf.type_definition, { desc = "Goto Type Definition" }
 keymap("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
 keymap("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
-keymap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
-keymap("n", "<leader>cl", vim.lsp.codelens.run, { desc = "Run CodeLens" })
-keymap("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
-keymap("n", "<leader>fmt", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format" })
-keymap("n", "<leader>ws", vim.lsp.buf.workspace_symbol, { desc = "Workspace Symbols" })
-keymap("n", "<leader>ds", vim.lsp.buf.document_symbol, { desc = "Document Symbols" })
+keymap("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Goto Previous Diagnostic" })
+keymap("n", "]d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Goto Next Diagnostic" })
+keymap("n", "gl", vim.diagnostic.open_float, { desc = "Show Diagnostics in Floating Window" })
+keymap("n", "gqf", vim.diagnostic.setloclist, { desc = "Show Diagnostics in Quickfix Window" })
 
-keymap("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
-keymap("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-keymap("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show Diagnostic" })
-keymap("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Quickfix Diagnostics" })
+keymap({ "n", "v" }, "gca", vim.lsp.buf.code_action, { desc = "Code Action" })
+keymap("n", "gcl", vim.lsp.codelens.run, { desc = "Run CodeLens" })
+keymap("n", "grn", vim.lsp.buf.rename, { desc = "Rename Object using LSP" })
+keymap("n", "gfmt", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format Code" })
 
 
 -- Fzf-Lua
@@ -68,7 +66,6 @@ keymap("n", "<leader>lws", require("fzf-lua").lsp_workspace_symbols, { desc = "[
 keymap("n", "<leader>ldd", require("fzf-lua").lsp_document_diagnostics, { desc = "[L]SP [D]ocument [D]iagnostics" })
 keymap("n", "<leader>lwd", require("fzf-lua").lsp_workspace_diagnostics, { desc = "[L]SP [W]orkspace [D]iagnostics" })
 keymap("n", "<leader>lca", require("fzf-lua").lsp_code_actions, { desc = "[L]SP [C]ode [A]ctions" })
-keymap("n", "<leader>lff", require("fzf-lua").lsp_finder, { desc = "[L]SP [F]inder" })
 
 
 -- Window management

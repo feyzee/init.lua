@@ -68,6 +68,7 @@ return {
   ---@type blink.cmp.Config
   opts = {
     appearance = {
+      use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
       -- kind_icons = completion_kinds, NOTE: remove if not needed
     },
@@ -76,7 +77,7 @@ return {
 
     -- TODO: move below config to keymaps.lua
     keymap = {
-      preset = "default",
+      preset = "enter",
       ["<A-]>"] = { "snippet_forward", "fallback" },
       ["<A-[>"] = { "snippet_backward", "fallback" },
 
