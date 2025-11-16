@@ -49,15 +49,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     -- Prefer LSP folding if client supports it
-    -- else switch to  folding via treesitter or by syntax
     if client:supports_method("textDocument/foldingRange") then
-      local win = vim.api.nvim_get_current_win()
-      vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
-    elseif require("nvim-treesitter.parsers").has_parser() then
-      vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-    else
-      vim.opt.foldmethod = "syntax"
+      vim.wo.foldmethod = "expr"
+      vim.wo.foldexpr = "v:lua.vim.lsp.foldexpr()"
     end
 
     -- Disable semantic tokens for large files
@@ -65,7 +59,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       client.server_capabilities.semanticTokensProvider = nil
     end
 
-    -- Auto-format ("lint") on save.
+    -- Auto-format on save.
     if
         not client:supports_method("textDocument/willSaveWaitUntil")
         and client:supports_method("textDocument/formatting")

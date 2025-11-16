@@ -34,13 +34,23 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 -- fold
-vim.o.foldcolumn = "0"
+-- NOTE: Fold method defaults to treesitter
+-- if LSP folding is available it's preferred
+-- check lua/config/autocmds.lua file for more information
+-- vim.o.foldcolumn = "1"
 vim.o.foldtext = ""
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
--- NOTE: Fold method defaults to treesitter
--- if LSP folding is available it's preferred
 vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
 
 vim.cmd([[colorscheme tokyonight]])
 vim.api.nvim_set_option_value("colorcolumn", "79", {})
