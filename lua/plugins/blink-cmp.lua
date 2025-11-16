@@ -1,5 +1,3 @@
--- local appearance = require("blink.cmp.config.appearance")
-
 local completion_kinds = { -- NOTE: remove if not needed
   Array = " ",
   Boolean = "󰨙 ",
@@ -60,73 +58,53 @@ return {
       opts = {},
       version = not vim.g.lazyvim_blink_main and "*",
     },
+    { "rafamadriz/friendly-snippets" },
   },
 
   event = { "InsertEnter", "CmdlineEnter" },
 
-  ---@module 'blink.cmp'
-  ---@type blink.cmp.Config
   opts = {
     appearance = {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
-      -- kind_icons = completion_kinds, NOTE: remove if not needed
+      kind_icons = completion_kinds,
     },
 
-    fuzzy = { implementation = "prefer_rust_with_warning" },
-
-    -- TODO: move below config to keymaps.lua
-    keymap = {
-      preset = "enter",
-      ["<A-]>"] = { "snippet_forward", "fallback" },
-      ["<A-[>"] = { "snippet_backward", "fallback" },
-
-      ["<Tab>"] = { "select_next", "fallback" },
-      ["<S-Tab>"] = { "select_prev", "fallback" },
-      ["<CR>"] = { "accept", "fallback" },
-
-      ["<S-k>"] = { "scroll_documentation_up", "fallback" },
-      ["<S-j>"] = { "scroll_documentation_down", "fallback" },
-
-      ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-      ["<C-e>"] = { "hide", "fallback" },
-      ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+    cmdline = {
+      keymap = { preset = 'inherit' },
+      completion = { menu = { auto_show = true } },
     },
-
-    -- Enable completion in cmdline
-    cmdline = { enabled = true },
 
     completion = {
-      accept = {
-        auto_brackets = {
-          enabled = true,
+      accept = { auto_brackets = { enabled = true } },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 500,
+        treesitter_highlighting = true,
+        update_delay_ms = 50,
+
+        window = {
+          border = "rounded",
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
         },
       },
 
-      documentation = { auto_show = true, auto_show_delay_ms = 500 },
       ghost_text = { enabled = true },
       keyword = { range = "full" },
-
       list = {
         max_items = 50,
-        selection = {
-          preselect = false,
-          auto_insert = true,
-        },
+        selection = { preselect = true, auto_insert = false },
       },
 
       menu = {
         auto_show = true,
-        -- border = "single",
+        border = "rounded",
         min_width = 25,
         max_height = 20,
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
 
         -- nvim-cmp style menu
         draw = {
-          snippet_indicator = "~",
-          padding = { 0, 1 },
-          treesitter = { "lsp" },
-
           columns = {
             { "label",     "label_description", gap = 1 },
             { "kind_icon", "kind" },
@@ -152,10 +130,42 @@ return {
               end,
             },
           },
+
+          gap = 2,
+          padding = 1,
+          snippet_indicator = "~",
+          treesitter = { "lsp" },
         },
       },
+
+      trigger = { show_in_snippet = false },
     },
 
+    fuzzy = { implementation = "prefer_rust_with_warning" },
+    keymap = {
+      preset = "enter",
+    -- TODO: move below config to keymaps.lua
+      ["<A-]>"] = { "snippet_forward", "fallback" },
+      ["<A-[>"] = { "snippet_backward", "fallback" },
+
+      ["<Tab>"] = { "select_next", "fallback" },
+      ["<S-Tab>"] = { "select_prev", "fallback" },
+      ["<CR>"] = { "accept", "fallback" },
+
+      ["<S-k>"] = { "scroll_documentation_up", "fallback" },
+      ["<S-j>"] = { "scroll_documentation_down", "fallback" },
+
+      ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+      ["<C-e>"] = { "hide", "fallback" },
+      ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+    },
+
+    signature = {
+      enabled = true,
+      window = { border = 'rounded', show_documentation = false },
+    },
+
+    snippets = { preset = "luasnip" },
     sources = {
       compat = {},
       default = { "lazydev", "lsp", "path", "snippets", "buffer" },
@@ -169,7 +179,8 @@ return {
         buffer = {
           name = "Buffer",
           enabled = true,
-          max_items = 3,
+          max_items = 5,
+          min_keyword_length = 4,
           module = "blink.cmp.sources.buffer",
           score_offset = 15, -- the higher the number, the higher the priority
         },
@@ -184,8 +195,7 @@ return {
           name = "lsp",
           enabled = true,
           module = "blink.cmp.sources.lsp",
-          max_items = 7,
-          min_keyword_length = nil,
+          max_items = 15,
           score_offset = 100,
 
           opts = {
@@ -199,7 +209,8 @@ return {
           module = "blink.cmp.sources.path",
           score_offset = 25,
           fallbacks = { "snippets", "buffer" },
-          max_items = 3,
+          max_items = 5,
+
           opts = {
             trailing_slash = false,
             label_trailing_slash = true,
@@ -214,7 +225,7 @@ return {
         snippets = {
           name = "snippets",
           enabled = true,
-          max_items = 5,
+          max_items = 7,
           module = "blink.cmp.sources.snippets",
           score_offset = 75,
 
@@ -227,11 +238,5 @@ return {
         },
       },
     },
-
-    -- Use a preset for snippets, check the snippets documentation for more information
-    snippets = { preset = "luasnip" },
-
-    -- Experimental signature help support
-    signature = { enabled = true },
   },
 }
