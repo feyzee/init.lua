@@ -144,7 +144,7 @@ return {
     fuzzy = { implementation = "prefer_rust_with_warning" },
     keymap = {
       preset = "enter",
-    -- TODO: move below config to keymaps.lua
+      -- TODO: move below config to keymaps.lua
       ["<A-]>"] = { "snippet_forward", "fallback" },
       ["<A-[>"] = { "snippet_backward", "fallback" },
 
@@ -167,7 +167,6 @@ return {
 
     snippets = { preset = "luasnip" },
     sources = {
-      compat = {},
       default = { "lazydev", "lsp", "path", "snippets", "buffer" },
       min_keyword_length = 2,
 
