@@ -1,11 +1,13 @@
 return {
   {
     "ibhagwan/fzf-lua",
-    opts = {}
-  },
-  {
-    "phaazon/hop.nvim",
-    opts = {}
+    opts = {
+      previewers = {
+        builtin = {
+          syntax_limit_b = 1024 * 100, -- 100KB
+        },
+      },
+    }
   },
   {
     "folke/flash.nvim",
