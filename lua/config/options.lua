@@ -58,3 +58,30 @@ vim.api.nvim_set_option_value("colorcolumn", "79", {})
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
 vim.o.timeoutlen = 500
+
+-- Set filetypes for various extensions
+vim.filetype.add({
+  extension = {
+    tfstate = "json",
+  },
+  filename = {
+    [".dockerignore"] = "gitignore",
+    ["shellcheckrc"] = "conf",
+  },
+  pattern = {
+    [".*%.json%.tftpl"] = "json",
+    [".*%.yaml%.tftpl"] = "yaml",
+    ["%.secrets.*"] = "sh",
+    [".*%.gitignore.*"] = "gitignore",
+    [".*Dockerfile.*"] = "dockerfile",
+    [".*Jenkinsfile.*"] = "groovy",
+    [".*envrc.*"] = "sh",
+    [".*README.(%a+)"] = function(ext)
+      if ext == "md" then
+        return "markdown"
+      elseif ext == "rst" then
+        return "rst"
+      end
+    end,
+  },
+})
