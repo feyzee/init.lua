@@ -59,18 +59,34 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     -- Auto-format on save.
-    if
-        not client:supports_method("textDocument/willSaveWaitUntil")
-        and client:supports_method("textDocument/formatting")
-    then
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = vim.api.nvim_create_augroup("my.lsp", { clear = false }),
-        buffer = event.buf,
-        callback = function()
-          vim.lsp.buf.format({ async = false, bufnr = event.buf, id = client.id, timeout_ms = 1000 })
-        end,
-      })
-    end
+    -- if
+    --     not client:supports_method("textDocument/willSaveWaitUntil")
+    --     and client:supports_method("textDocument/formatting")
+    -- then
+    --   vim.api.nvim_create_autocmd("BufWritePre", {
+    --     group = vim.api.nvim_create_augroup("lsp-format", { clear = false }),
+    --     buffer = event.buf,
+    --     callback = function()
+    --       local view = vim.fn.winsaveview()
+    --       local clients = vim.lsp.get_clients({ bufnr = event.buf })
+    --       if #clients == 0 then return end
+    --
+    --       vim.lsp.buf.format({
+    --         async = true,
+    --         bufnr = event.buf,
+    --         -- id = client.id,
+    --         timeout_ms = 3000,
+    --         filter = function(c)
+    --           return c.id == client.id and c:supports_method("textDocument/formatting")
+    --         end,
+    --         callback = function()
+    --           -- Restore view after formatting
+    --           vim.fn.winrestview(view)
+    --         end
+    --       })
+    --     end,
+    --   })
+    -- end
   end,
 })
 

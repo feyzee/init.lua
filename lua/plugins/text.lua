@@ -8,7 +8,6 @@ return {
       disable_filetype = { "TelescopePrompt", "vim" },
     },
   },
-
   {
     "folke/todo-comments.nvim",
     opts = {
@@ -76,7 +75,6 @@ return {
       },
     },
   },
-
   {
     "nvim-mini/mini.surround",
     opts = {
@@ -89,6 +87,50 @@ return {
         replace = "gsc",        -- Replace surrounding
         update_n_lines = "gsn", -- Update `n_lines`
       },
+    },
+  },
+  {
+    'stevearc/conform.nvim',
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        "gfmt",
+        function()
+          require("conform").format({
+            formatters = { "injected" },
+            async = true,
+            lsp_fallback = true,
+            timeout_ms = 3000
+          })
+        end,
+        mode = { "n", "x" },
+        desc = "Format Code",
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
+        css = { "prettier" },
+        html = { "prettier" },
+        json = { "prettier" },
+        yaml = { "prettier" },
+        markdown = { "prettier" },
+        go = { "gofmt", "goimports" },
+        fish = { "fish_indent" },
+      },
+
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+
+      notify_on_error = true,
     },
   },
 }
