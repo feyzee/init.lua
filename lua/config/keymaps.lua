@@ -33,7 +33,6 @@ keymap("n", "gqf", vim.diagnostic.setloclist, { desc = "Show Diagnostics in Quic
 keymap({ "n", "v" }, "gca", vim.lsp.buf.code_action, { desc = "Code Action" })
 keymap("n", "gcl", vim.lsp.codelens.run, { desc = "Run CodeLens" })
 keymap("n", "grn", vim.lsp.buf.rename, { desc = "Rename Object using LSP" })
-keymap("n", "gfmt", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format Code" })
 
 
 -- Fzf-Lua
