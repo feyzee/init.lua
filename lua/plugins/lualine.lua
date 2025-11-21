@@ -21,22 +21,22 @@ return {
       --     z = default_theme,
       --   },
       -- },
-      theme = 'tokyonight',
-      component_separators = '|',
-      section_separators = { left = '', right = '' },
-      disabled_filetypes = { 'mason', 'lazy', 'NvimTree', 'neo-tree' },
+      theme = "tokyonight",
+      component_separators = "|",
+      section_separators = { left = "", right = "" },
+      disabled_filetypes = { "mason", "lazy", "NvimTree", "neo-tree" },
     },
     sections = {
       lualine_a = {
-        -- { 'mode', right_padding = 2 },
-        { 'mode', separator = { left = '' }, right_padding = 2 },
+        -- { "mode", right_padding = 2 },
+        { "mode", separator = { left = "" }, right_padding = 2 },
       },
 
-      lualine_b = { { 'filename', path = 1 }, { 'branch' } },
-      lualine_c = { 'diagnostics', 'diff' },
-      lualine_x = { 'selectioncount', 'encoding', 'fileformat' },
+      lualine_b = { { "filename", path = 1 }, { "branch" } },
+      lualine_c = { "diagnostics", "diff" },
+      lualine_x = { "selectioncount", "encoding", "fileformat" },
       lualine_y = {
-        'filetype',
+        "filetype",
         { -- Displays the attached LSPs
           function()
             local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
@@ -49,26 +49,33 @@ return {
             end
             return table.concat(buf_client_names, ", ")
           end,
-          -- icon = ' ',
+          -- icon = " ",
         },
-        'progress'
+        "progress"
       },
 
       lualine_z = {
-        { 'location', separator = { right = '' }, left_padding = 2 },
+        { "location", separator = { right = "" }, left_padding = 2 },
       },
     },
 
     inactive_sections = {
-      lualine_a = { { 'filename', file_status = true, path = 1 } },
+      lualine_a = { { "filename", file_status = true, path = 1 } },
       lualine_b = {},
       lualine_c = {},
       lualine_x = {},
       lualine_y = {},
-      lualine_z = { { 'branch' }, { 'location' } },
+      lualine_z = { { "branch" }, { "location" } },
     },
 
-    tabline = {},
+    tabline = {
+      -- lualine_a = {},
+      -- lualine_b = { "branch" },
+      -- lualine_c = { "filename" },
+      -- lualine_x = {},
+      -- lualine_y = {},
+      -- lualine_z = {}
+    },
     extensions = {},
   },
 }
