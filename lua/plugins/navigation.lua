@@ -23,6 +23,20 @@ return {
           },
         },
       },
+      git = {
+        branches = {
+          winopts = {
+            height = 0.8,
+            width = 0.5,
+            backdrop = 75,
+            preview = {
+              layout = "vertical",
+              horizontal = "right:50%",
+              vertical = "down:60%",
+            },
+          },
+        },
+      },
     },
   },
   {
