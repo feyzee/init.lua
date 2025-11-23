@@ -57,33 +57,6 @@ return {
     end,
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {
-      scope = { enabled = true },
-    },
-    exclude = {
-      filetypes = {
-        "Trouble",
-        "alpha",
-        "dashboard",
-        "help",
-        "lazy",
-        "mason",
-        "neo-tree",
-        "notify",
-        "snacks_dashboard",
-        "snacks_notif",
-        "snacks_terminal",
-        "snacks_win",
-        "toggleterm",
-        "trouble",
-      },
-    },
-  },
-  {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
@@ -111,6 +84,9 @@ return {
         bottom_search = true,
         command_palette = true,
         long_message_to_split = true,
+      },
+      notify = {
+        enabled = false,
       },
     },
     -- stylua: ignore
