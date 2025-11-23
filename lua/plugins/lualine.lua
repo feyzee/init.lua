@@ -8,7 +8,7 @@ return {
       theme = "tokyonight",
       component_separators = "|",
       section_separators = { left = "", right = "" },
-      disabled_filetypes = { "mason", "lazy", "NvimTree", "neo-tree" },
+      disabled_filetypes = { "mason", "lazy", "NvimTree", "neo-tree", "gitsigns-blame", "quickfix", "prompt" },
     },
     sections = {
       lualine_a = {
