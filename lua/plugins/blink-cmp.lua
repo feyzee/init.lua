@@ -1,3 +1,8 @@
+-- Included plugins in this module:
+--   - blink.cmp
+--   - blink.compat
+--   - friendly-snippets
+
 local completion_kinds = { -- NOTE: remove if not needed
   Array = " ",
   Boolean = "󰨙 ",
@@ -72,7 +77,7 @@ return {
 
     cmdline = {
       keymap = { preset = 'inherit' },
-      completion = { menu = { auto_show = true } },
+      completion = { menu = { auto_show = true, min_keyword_length = 5 } },
     },
 
     completion = {
@@ -107,7 +112,7 @@ return {
         draw = {
           columns = {
             { "label",     "label_description", gap = 1 },
-            { "kind_icon", "kind" },
+            { "kind_icon", "kind", gap = 1 },
           },
 
           components = {
