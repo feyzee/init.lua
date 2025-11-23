@@ -52,41 +52,38 @@ return {
 			lualine_z = { { "branch" }, { "location" } },
 		},
 
-		-- tabline = {
-		-- 	lualine_a = {
-		-- 		{
-		-- 			"tabs",
-		-- 			mode = 1,
-		-- 			path = 0,
-		-- 			fmt = function(name, context)
-		-- 				local tabnr = context.tabnr
-		-- 				local tab_name = vim.fn.gettabvar(tabnr, "tab_name")
-		-- 				if tab_name == "" then
-		-- 					tab_name = nil
-		-- 				end
-		--
-		-- 				local buflist = vim.fn.tabpagebuflist(tabnr)
-		-- 				local unique_bufs = {}
-		-- 				for _, b in ipairs(buflist) do
-		-- 					unique_bufs[b] = true
-		-- 				end
-		-- 				local count = 0
-		-- 				for _ in pairs(unique_bufs) do
-		-- 					count = count + 1
-		-- 				end
-		--
-		-- 				local display_name = tab_name or name
-		-- 				return string.format("%d: %s (%d)", tabnr, display_name, count)
-		-- 			end,
-		-- 		},
-		-- 	},
-		-- 	lualine_b = {},
-		-- 	lualine_c = {},
-		-- 	lualine_x = {},
-		-- 	lualine_y = {},
-		-- 	lualine_z = {},
-		-- 	5,
-		-- },
-		extensions = {},
-	},
+    tabline = {
+      lualine_a = {
+        {
+          "tabs",
+          mode = 1,
+          path = 0,
+          fmt = function(name, context)
+            local tabnr = context.tabnr
+            local tab_name = vim.fn.gettabvar(tabnr, "tab_name")
+            if tab_name == "" then tab_name = nil end
+            
+            local buflist = vim.fn.tabpagebuflist(tabnr)
+            local unique_bufs = {}
+            for _, b in ipairs(buflist) do
+              unique_bufs[b] = true
+            end
+            local count = 0
+            for _ in pairs(unique_bufs) do
+              count = count + 1
+            end
+            
+            local display_name = tab_name or name
+            return string.format("%d: %s (%d)", tabnr, display_name, count)
+          end,
+        },
+      },
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {},
+    },
+    extensions = {},
+  },
 }

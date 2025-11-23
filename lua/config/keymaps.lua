@@ -91,7 +91,13 @@ keymap("n", "<leader>tfv", ":!terraform validate<CR>", opts)
 keymap("n", "<leader>tfmt", ":!terraform fmt<CR>", opts)
 
 -- Snacks
-keymap("n", "<leader>.", function()
-	Snacks.scratch()
-end, { desc = "Toggle Scratch Buffer" })
+keymap("n", "<leader>.", function() Snacks.scratch() end, { desc = "Toggle Scratch Buffer" })
 
+-- Tabs
+keymap("n", "<leader>tr", function()
+  local new_name = vim.fn.input("Tab name: ")
+  if new_name ~= "" then
+    vim.t.tab_name = new_name
+    vim.cmd("redrawtabline")
+  end
+end, { desc = "Rename Tab" })

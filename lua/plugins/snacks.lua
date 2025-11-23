@@ -2,15 +2,15 @@
 --   - snacks.nvim
 
 return {
-	"folke/snacks.nvim",
-	priority = 1000,
-	lazy = false,
-	opts = {
-		bigfile = { enabled = false },
-		dashboard = {
-			enabled = true,
-			preset = {
-				header = [[
+  "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
+  opts = {
+    bigfile = { enabled = true },
+    dashboard = {
+      enabled = true,
+      preset = {
+        header = [[
           ███████╗███████╗██╗   ██╗███████╗███████╗███████╗
           ██╔════╝██╔════╝╚██╗ ██╔╝╚══███╔╝██╔════╝██╔════╝
           █████╗  █████╗   ╚████╔╝   ███╔╝ █████╗  █████╗  
