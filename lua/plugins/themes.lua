@@ -1,3 +1,7 @@
+-- Included plugins in this module:
+--   - tokyonight.nvim
+--   - catppuccin
+
 return {
   {
     "folke/tokyonight.nvim",

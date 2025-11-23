@@ -1,3 +1,6 @@
+-- Included plugins in this module:
+--   - trouble.nvim
+
 return {
   "folke/trouble.nvim",
   cmd = "Trouble",

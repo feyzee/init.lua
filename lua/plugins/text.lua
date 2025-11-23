@@ -1,12 +1,14 @@
+-- Included plugins in this module:
+--   - mini.pairs
+--   - todo-comments.nvim
+--   - mini.surround
+--   - conform.nvim
+
 return {
   {
-    "windwp/nvim-autopairs",
-    opts = {
-      fast_wrap = {},
-      enable_check_bracket_line = false,
-      ignored_next_char = "[%w%.]",
-      disable_filetype = { "TelescopePrompt", "vim" },
-    },
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    opts = {},
   },
   {
     "folke/todo-comments.nvim",

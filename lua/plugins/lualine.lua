@@ -1,26 +1,10 @@
+-- Included plugins in this module:
+--   - lualine.nvim
+
 return {
   "nvim-lualine/lualine.nvim",
-
   opts = {
     options = {
-      -- theme = {
-      --   normal = {
-      --     a = default_theme,
-      --     b = default_theme,
-      --     c = default_theme,
-      --     x = default_theme,
-      --     y = default_theme,
-      --     z = default_theme,
-      --   },
-      --   inactive = {
-      --     a = default_theme,
-      --     b = default_theme,
-      --     c = default_theme,
-      --     x = default_theme,
-      --     y = default_theme,
-      --     z = default_theme,
-      --   },
-      -- },
       theme = "tokyonight",
       component_separators = "|",
       section_separators = { left = "", right = "" },

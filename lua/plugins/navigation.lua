@@ -1,3 +1,7 @@
+-- Included plugins in this module:
+--   - fzf-lua
+--   - flash.nvim
+
 return {
   {
     "ibhagwan/fzf-lua",
