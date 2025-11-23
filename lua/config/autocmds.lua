@@ -18,6 +18,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- Enable document highlight if supported
     if client:supports_method("textDocument/documentHighlight") then
       local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+      
+      -- Clear existing highlight autocmds for this buffer to prevent duplication
+      vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event.buf })
+      
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = event.buf,
         group = highlight_augroup,
@@ -28,8 +32,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
         group = highlight_augroup,
         callback = vim.lsp.buf.clear_references,
       })
+      
       vim.api.nvim_create_autocmd("LspDetach", {
-        group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+        group = vim.api.nvim_create_augroup("lsp-detach", { clear = false }),
+        buffer = event.buf,
         callback = function(event2)
           vim.lsp.buf.clear_references()
           vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
@@ -57,36 +63,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     if vim.api.nvim_buf_line_count(event.buf) > 5000 then
       client.server_capabilities.semanticTokensProvider = nil
     end
-
-    -- Auto-format on save.
-    -- if
-    --     not client:supports_method("textDocument/willSaveWaitUntil")
-    --     and client:supports_method("textDocument/formatting")
-    -- then
-    --   vim.api.nvim_create_autocmd("BufWritePre", {
-    --     group = vim.api.nvim_create_augroup("lsp-format", { clear = false }),
-    --     buffer = event.buf,
-    --     callback = function()
-    --       local view = vim.fn.winsaveview()
-    --       local clients = vim.lsp.get_clients({ bufnr = event.buf })
-    --       if #clients == 0 then return end
-    --
-    --       vim.lsp.buf.format({
-    --         async = true,
-    --         bufnr = event.buf,
-    --         -- id = client.id,
-    --         timeout_ms = 3000,
-    --         filter = function(c)
-    --           return c.id == client.id and c:supports_method("textDocument/formatting")
-    --         end,
-    --         callback = function()
-    --           -- Restore view after formatting
-    --           vim.fn.winrestview(view)
-    --         end
-    --       })
-    --     end,
-    --   })
-    -- end
   end,
 })
 
