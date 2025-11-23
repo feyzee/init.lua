@@ -58,6 +58,9 @@ vim.api.nvim_set_option_value("colorcolumn", "79", {})
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
 vim.o.timeoutlen = 500
+vim.o.confirm = true
+vim.o.laststatus = 3
+vim.o.sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,skiprtp,folds"
 
 -- Set filetypes for various extensions
 vim.filetype.add({

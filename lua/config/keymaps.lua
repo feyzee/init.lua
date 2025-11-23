@@ -94,3 +94,6 @@ keymap("n", "<leader>b", ":Neotree toggle<cr>", opts)
 -- Terraform
 keymap("n", "<leader>tfv", ":!terraform validate<CR>", opts)
 keymap("n", "<leader>tfmt", ":!terraform fmt<CR>", opts)
+
+-- Snacks
+keymap("n", "<leader>.", function() Snacks.scratch() end, { desc = "Toggle Scratch Buffer" })

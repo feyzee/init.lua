@@ -124,6 +124,7 @@ return {
         yaml = { "prettier" },
         markdown = { "prettier" },
         go = { "gofmt", "goimports" },
+        terraform = { "terraform_fmt" },
         fish = { "fish_indent" },
       },
 

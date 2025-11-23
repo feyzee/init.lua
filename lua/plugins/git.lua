@@ -1,8 +1,11 @@
+-- Included plugins in this module:
+--   - diffview.nvim
+--   - git-conflict.nvim
+--   - gitsigns.nvim
+
 return {
-  { "APZelos/blamer.nvim" },
   { "sindrets/diffview.nvim" },
   { "akinsho/git-conflict.nvim" },
-
   {
     "lewis6991/gitsigns.nvim",
     ft = "gitcommit",
