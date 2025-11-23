@@ -67,7 +67,7 @@ return {
       lualine_a = {
         {
           "tabs",
-          mode = 0, -- 0: Shows tab_name or new tab count if no name is set
+          mode = 1, -- 0: Shows tab_name or new tab count if no name is set
           path = 0,
           max_length = vim.o.columns, -- Force full width to avoid truncation
           fmt = function(name, context)
