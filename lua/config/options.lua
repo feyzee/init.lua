@@ -9,7 +9,8 @@ vim.o.linebreak = true
 vim.o.breakindent = true
 vim.o.smartindent = true
 vim.o.list = true
-vim.opt.listchars = { eol = "↴", lead = "⋅", nbsp = "␣", tab = "→ ", trail = "⋅" }
+vim.opt.listchars =
+  { eol = "↴", lead = "⋅", nbsp = "␣", tab = "→ ", trail = "⋅" }
 
 -- Tabs vs spaces
 vim.o.tabstop = 4

@@ -24,7 +24,7 @@ return {
           provider = function(icon, node) -- setup a custom icon provider
             local text, hl
             local mini_icons = require("mini.icons")
-            if node.type == "file" then          -- if it's a file, set the text/hl
+            if node.type == "file" then -- if it's a file, set the text/hl
               text, hl = mini_icons.get("file", node.name)
             elseif node.type == "directory" then -- get directory icons
               text, hl = mini_icons.get("directory", node.name)
@@ -121,21 +121,21 @@ return {
         {
           mode = { "n", "x" },
           { "<leader><tab>", group = "tabs" },
-          { "<leader>c",     group = "code" },
-          { "<leader>d",     group = "debug" },
-          { "<leader>dp",    group = "profiler" },
-          { "<leader>f",     group = "file/find" },
-          { "<leader>g",     group = "git" },
-          { "<leader>gh",    group = "hunks" },
-          { "<leader>q",     group = "quit/session" },
-          { "<leader>s",     group = "search" },
-          { "<leader>u",     group = "ui" },
-          { "<leader>x",     group = "diagnostics/quickfix" },
-          { "[",             group = "prev" },
-          { "]",             group = "next" },
-          { "g",             group = "goto" },
-          { "gs",            group = "surround" },
-          { "z",             group = "fold" },
+          { "<leader>c", group = "code" },
+          { "<leader>d", group = "debug" },
+          { "<leader>dp", group = "profiler" },
+          { "<leader>f", group = "file/find" },
+          { "<leader>g", group = "git" },
+          { "<leader>gh", group = "hunks" },
+          { "<leader>q", group = "quit/session" },
+          { "<leader>s", group = "search" },
+          { "<leader>u", group = "ui" },
+          { "<leader>x", group = "diagnostics/quickfix" },
+          { "[", group = "prev" },
+          { "]", group = "next" },
+          { "g", group = "goto" },
+          { "gs", group = "surround" },
+          { "z", group = "fold" },
           {
             "<leader>w",
             group = "windows",
@@ -148,6 +148,6 @@ return {
       },
     },
   },
-  { "MunifTanjim/nui.nvim",  lazy = true },
+  { "MunifTanjim/nui.nvim", lazy = true },
   { "nvim-lua/plenary.nvim", lazy = true },
 }
