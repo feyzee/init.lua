@@ -3,22 +3,34 @@
 --   - flash.nvim
 
 return {
-  {
-    "ibhagwan/fzf-lua",
-    opts = {
-      previewers = {
-        builtin = {
-          syntax_limit_b = 1024 * 100, -- 100KB
-        },
-      },
-    }
-  },
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    vscode = true,
-    ---@type Flash.Config
-    opts = {},
+	{
+		"ibhagwan/fzf-lua",
+		opts = {
+			previewers = {
+				builtin = {
+					syntax_limit_b = 1024 * 100, -- 100KB
+				},
+			},
+			grep_curbuf = {
+				winopts = {
+					height = 0.8,
+					width = 0.5,
+					backdrop = 75,
+					preview = {
+						layout = "vertical",
+						horizontal = "right:50%",
+						vertical = "down:60%",
+					},
+				},
+			},
+		},
+	},
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		vscode = true,
+		---@type Flash.Config
+		opts = {},
     -- stylua: ignore
     keys = {
       { "\\",         mode = { "n", "x", "o" }, function() require("flash").jump() end,       desc = "Flash" },
@@ -39,5 +51,5 @@ return {
         desc = "Treesitter Incremental Selection"
       },
     },
-  },
+	},
 }
