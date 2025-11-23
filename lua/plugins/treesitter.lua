@@ -1,3 +1,8 @@
+-- Included plugins in this module:
+--   - nvim-treesitter
+--   - nvim-treesitter
+--   - mini.ai
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -16,6 +21,7 @@ return {
         "dockerfile",
         "go",
         "hcl",
+        "helm",
         "html",
         "javascript",
         "json",
@@ -27,7 +33,13 @@ return {
         "rust",
         "terraform",
         "typescript",
-        "yaml"
+        "yaml",
+        "gowork",
+        "gomod",
+        "gosum",
+        "sql",
+        "gotmpl",
+        "comment",
       },
 
       highlight = { enable = true },
@@ -42,57 +54,30 @@ return {
         },
       },
 
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-          keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
-            ["aa"] = "@parameter.outer",
-            ["ia"] = "@parameter.inner",
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]]"] = "@class.outer",
-          },
-          goto_next_end = {
-            ["]M"] = "@function.outer",
-            ["]["] = "@class.outer",
-          },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-          },
-          goto_previous_end = {
-            ["[M"] = "@function.outer",
-            ["[]"] = "@class.outer",
-          },
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<leader>a"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<leader>A"] = "@parameter.inner",
-          },
-        },
-      },
     },
   },
-
- -- { 
- --   "nvim-treesitter/nvim-treesitter",
- --   config = function(_, opts) require('nvim-treesitter.configs').setup(opts) end,
- -- },
-
-  { "nvim-treesitter/nvim-treesitter-textobjects" },
+  {
+    "echasnovski/mini.ai",
+    event = "VeryLazy",
+    opts = function()
+      local ai = require("mini.ai")
+      return {
+        n_lines = 500,
+        custom_textobjects = {
+          o = ai.gen_spec.treesitter({ -- code block
+            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+            i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+          }),
+          f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+          c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
+          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+          d = { "%f[%d]%d+" }, -- digits
+          e = { -- Word with case
+            { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
+            "^().*()$",
+          },
+        },
+      }
+    end,
+  },
 }
