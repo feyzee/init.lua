@@ -44,8 +44,7 @@ return {
       local exe = vim.fn.exepath("golangci-lint")
       local version = vim.system({ "go", "version", "-m", exe }):wait()
       v1 = string.match(version.stdout, "\tmod\tgithub.com/golangci/golangci%-lint\t")
-      v2 =
-        string.match(version.stdout, "\tmod\tgithub.com/golangci/golangci%-lint/v2\t")
+      v2 = string.match(version.stdout, "\tmod\tgithub.com/golangci/golangci%-lint/v2\t")
     end
     if not v1 and not v2 then
       local version = vim.system({ "golangci-lint", "version" }):wait()

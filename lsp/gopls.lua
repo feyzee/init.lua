@@ -27,11 +27,11 @@ local function identify_go_dir(custom_args, on_complete)
     else
       vim.schedule(function()
         vim.notify(
-          (
-            "[gopls] identify "
-            .. custom_args.envvar_id
-            .. " dir cmd failed with code %d: %s\n%s"
-          ):format(output.code, vim.inspect(cmd), output.stderr)
+          ("[gopls] identify " .. custom_args.envvar_id .. " dir cmd failed with code %d: %s\n%s"):format(
+            output.code,
+            vim.inspect(cmd),
+            output.stderr
+          )
         )
       end)
       on_complete(nil)
@@ -82,9 +82,7 @@ local function get_root_dir(fname)
       return clients[#clients].config.root_dir
     end
   end
-  return vim.fs.root(fname, "go.work")
-    or vim.fs.root(fname, "go.mod")
-    or vim.fs.root(fname, ".git")
+  return vim.fs.root(fname, "go.work") or vim.fs.root(fname, "go.mod") or vim.fs.root(fname, ".git")
 end
 
 ---@type vim.lsp.Config

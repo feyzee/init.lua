@@ -58,8 +58,7 @@ return {
     -- As stated in the documentation above, this LSP supports monorepos and simple projects.
     -- We select then from the project root, which is identified by the presence of a package
     -- manager lock file.
-    local root_markers =
-      { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
+    local root_markers = { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
     -- Give the root markers equal priority by wrapping them in a table
     root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, { ".git" } }
       or vim.list_extend(root_markers, { ".git" })
@@ -88,8 +87,7 @@ return {
       local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
       local file_uri, position, references = unpack(command.arguments)
 
-      local quickfix_items =
-        vim.lsp.util.locations_to_items(references, client.offset_encoding)
+      local quickfix_items = vim.lsp.util.locations_to_items(references, client.offset_encoding)
       vim.fn.setqflist({}, " ", {
         title = command.title,
         items = quickfix_items,

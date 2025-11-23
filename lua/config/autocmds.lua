@@ -1,7 +1,11 @@
--- LSP related
+-- Create augroups once for better performance
+local lsp_attach_group = vim.api.nvim_create_augroup("lsp-attach", { clear = true })
+local lsp_highlight_group = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+local lsp_detach_group = vim.api.nvim_create_augroup("lsp-detach", { clear = false })
 
+-- LSP related
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+  group = lsp_attach_group,
   callback = function(event)
     local client = vim.lsp.get_client_by_id(event.data.client_id)
     if not client then
@@ -13,38 +17,32 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
 
       vim.keymap.set("n", "<leader>cl", function()
-        vim.lsp.inlay_hint.enable(
-          not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }),
-          { bufnr = event.buf }
-        )
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }), { bufnr = event.buf })
       end, { desc = "Toggle Inlay Hints" })
     end
 
     -- Enable document highlight if supported
     if client:supports_method("textDocument/documentHighlight") then
-      local highlight_augroup =
-        vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
-
       -- Clear existing highlight autocmds for this buffer to prevent duplication
-      vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event.buf })
+      vim.api.nvim_clear_autocmds({ group = lsp_highlight_group, buffer = event.buf })
 
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = event.buf,
-        group = highlight_augroup,
+        group = lsp_highlight_group,
         callback = vim.lsp.buf.document_highlight,
       })
       vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         buffer = event.buf,
-        group = highlight_augroup,
+        group = lsp_highlight_group,
         callback = vim.lsp.buf.clear_references,
       })
 
       vim.api.nvim_create_autocmd("LspDetach", {
-        group = vim.api.nvim_create_augroup("lsp-detach", { clear = false }),
+        group = lsp_detach_group,
         buffer = event.buf,
         callback = function(event2)
           vim.lsp.buf.clear_references()
-          vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
+          vim.api.nvim_clear_autocmds({ group = lsp_highlight_group, buffer = event2.buf })
         end,
       })
     end
@@ -109,15 +107,16 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- show cursorline only in active window enable
+-- show cursorline only in active window
+local cursorline_group = vim.api.nvim_create_augroup("active_cursorline", { clear = true })
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-  group = vim.api.nvim_create_augroup("active_cursorline", { clear = true }),
+  group = cursorline_group,
   callback = function()
     vim.opt_local.cursorline = true
   end,
 })
 vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
-  group = "active_cursorline",
+  group = cursorline_group,
   callback = function()
     vim.opt_local.cursorline = false
   end,
