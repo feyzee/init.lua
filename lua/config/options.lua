@@ -83,5 +83,8 @@ vim.filetype.add({
         return "rst"
       end
     end,
+    ["/templates/.*%.yaml"] = "helm",
+    ["/templates/.*%.tpl"] = "helm",
+    [".*%.helm"] = "helm",
   },
 })
