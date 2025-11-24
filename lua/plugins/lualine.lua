@@ -5,10 +5,11 @@ return {
   "nvim-lualine/lualine.nvim",
   opts = {
     options = {
-      theme = "tokyonight",
       component_separators = "|",
-      section_separators = { left = "", right = "" },
       disabled_filetypes = { "mason", "lazy", "NvimTree", "neo-tree", "gitsigns-blame", "quickfix", "prompt" },
+      globalstatus = true,
+      section_separators = { left = "", right = "" },
+      theme = "tokyonight",
     },
     sections = {
       lualine_a = {
