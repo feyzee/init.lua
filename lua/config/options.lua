@@ -60,7 +60,7 @@ vim.o.completeopt = "menuone,noselect"
 vim.o.timeoutlen = 500
 vim.o.confirm = true
 vim.o.laststatus = 3
-vim.o.sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,skiprtp,folds"
+vim.o.sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,skiprtp,folds,resize"
 
 -- Set filetypes for various extensions
 vim.filetype.add({

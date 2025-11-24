@@ -85,7 +85,9 @@ keymap("n", "<A-Down>", "<Esc>:m .+1<CR>==", opts)
 
 -- Neotree
 keymap("n", "<leader>b", ":Neotree toggle<cr>", opts)
-keymap("n", "<leader>es", function() vim.cmd("Neotree dir=" .. vim.fn.getcwd()) end, { desc = "Explorer (Root Dir)" })
+keymap("n", "<leader>es", function()
+  vim.cmd("Neotree dir=" .. vim.fn.getcwd())
+end, { desc = "Explorer (Root Dir)" })
 
 -- Terraform
 keymap("n", "<leader>tfv", ":!terraform validate<CR>", opts)
