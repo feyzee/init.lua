@@ -16,33 +16,25 @@ return {
         { "mode", separator = { left = "" }, right_padding = 2 },
       },
       lualine_b = {
-        { "branch" },
         {
-          function()
-            local filestatus = ""
-            if vim.bo.modified then
-              filestatus = filestatus .. ""
-            end
-            if vim.bo.readonly then
-              filestatus = filestatus .. ""
-            end
-            return filestatus
-          end,
+          "filename",
+          file_status = true,
+          path = 0,
+          symbols = {
+            modified = " ",
+            readonly = " ",
+            unnamed = "󰽤 ",
+            newfile = " ",
+          },
         },
       },
-      lualine_c = {
+      lualine_c = { "branch" },
+      lualine_x = {
         {
           "diagnostics",
           sources = { "nvim_diagnostic", "nvim_lsp" },
           sections = { "error", "warn", "info", "hint" },
           symbols = { error = " ", warn = " ", info = " ", hint = "" },
-        },
-      },
-      lualine_x = {
-        {
-          "diff",
-          colored = true,
-          symbols = { added = " ", modified = " ", removed = "󰛲 " },
         },
       },
       lualine_y = {
@@ -51,7 +43,6 @@ return {
         {
           "lsp_status",
           symbols = {
-            spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
             done = "✓",
             separator = ", ",
           },
@@ -97,18 +88,18 @@ return {
       lualine_b = {},
       lualine_c = {},
       lualine_x = {},
-      lualine_y = {},
-      lualine_z = {
+      lualine_y = {
         {
           "filename",
-          file_status = true,
-          path = 1,
-          symbols = {
-            modified = " ",
-            readonly = " ",
-            unnamed = "󰽤 ",
-            newfile = " ",
-          },
+          file_status = false,
+          path = 3,
+        },
+      },
+      lualine_z = {
+        {
+          "diff",
+          colored = false,
+          symbols = { added = " ", modified = " ", removed = "󰛲 " },
         },
       },
     },
