@@ -8,15 +8,6 @@
 
 return {
   {
-    "j-hui/fidget.nvim",
-    branch = "legacy",
-    opts = {
-      window = {
-        blend = 0,
-      },
-    },
-  },
-  {
     "echasnovski/mini.icons",
     opts = {
       default_component_configs = {
