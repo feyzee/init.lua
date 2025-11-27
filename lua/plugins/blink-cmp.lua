@@ -3,49 +3,6 @@
 --   - blink.compat
 --   - friendly-snippets
 
-local completion_kinds = { -- NOTE: remove if not needed
-  Array = " ",
-  Boolean = "󰨙 ",
-  Class = " ",
-  Codeium = "󰘦 ",
-  Color = " ",
-  Control = " ",
-  Collapsed = " ",
-  Constant = "󰏿 ",
-  Constructor = " ",
-  Copilot = " ",
-  Enum = " ",
-  EnumMember = " ",
-  Event = " ",
-  Field = " ",
-  File = " ",
-  Folder = " ",
-  Function = "󰊕 ",
-  Interface = " ",
-  Key = " ",
-  Keyword = " ",
-  Method = "󰊕 ",
-  Module = " ",
-  Namespace = "󰦮 ",
-  Null = " ",
-  Number = "󰎠 ",
-  Object = " ",
-  Operator = " ",
-  Package = " ",
-  Property = " ",
-  Reference = " ",
-  Snippet = "󱄽 ",
-  String = " ",
-  Struct = "󰆼 ",
-  Supermaven = " ",
-  TabNine = "󰏚 ",
-  Text = " ",
-  TypeParameter = " ",
-  Unit = " ",
-  Value = " ",
-  Variable = "󰀫 ",
-}
-
 return {
   "saghen/blink.cmp",
   version = "1.*",
@@ -72,7 +29,6 @@ return {
     appearance = {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
-      kind_icons = completion_kinds,
     },
 
     cmdline = {
@@ -171,11 +127,11 @@ return {
 
     snippets = { preset = "luasnip" },
     sources = {
-      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer" },
       min_keyword_length = 2,
 
       per_filetype = {
-        lua = { inherit_defaults = true, "lazydev" },
+        lua = { inherit_defaults = true },
       },
 
       providers = {
@@ -188,12 +144,6 @@ return {
           score_offset = 15, -- the higher the number, the higher the priority
         },
 
-        lazydev = {
-          name = "LazyDev",
-          module = "lazydev.integrations.blink",
-          score_offset = 101,
-        },
-
         lsp = {
           name = "lsp",
           enabled = true,
@@ -202,7 +152,6 @@ return {
           score_offset = 100,
 
           opts = {
-            show_signature_help = true,
             resolve_timeout_ms = 100,
           },
         },
