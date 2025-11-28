@@ -104,7 +104,6 @@ return {
     fuzzy = { implementation = "prefer_rust_with_warning" },
     keymap = {
       preset = "enter",
-      -- TODO: move below config to keymaps.lua
       ["<A-]>"] = { "snippet_forward", "fallback" },
       ["<A-[>"] = { "snippet_backward", "fallback" },
 

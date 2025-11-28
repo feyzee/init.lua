@@ -63,6 +63,7 @@ return {
           mode = 1, -- 0: Shows tab_name or new tab count if no name is set
           path = 0,
           max_length = vim.o.columns, -- Force full width to avoid truncation
+          show_modified_status = false,
           fmt = function(name, context)
             local tabnr = context.tabnr
             local tab_name = vim.fn.gettabvar(tabnr, "tab_name")
