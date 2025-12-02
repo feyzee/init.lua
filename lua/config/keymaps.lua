@@ -22,8 +22,7 @@ keymap("n", "gy", vim.lsp.buf.type_definition, { desc = "Goto Type Definition" }
 keymap("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
 keymap("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 keymap({ "n", "v" }, "gca", vim.lsp.buf.code_action, { desc = "Code Action" })
-keymap("n", "gcl", vim.lsp.codelens.run, { desc = "Run CodeLens" })
-keymap("n", "grn", vim.lsp.buf.rename, { desc = "Rename Object using LSP" })
+keymap("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename Object using LSP" })
 
 -- Diagnostics
 keymap("n", "[d", function()

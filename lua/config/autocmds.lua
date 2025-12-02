@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     if client:supports_method("textDocument/inlayHint") then
       vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
 
-      vim.keymap.set("n", "<leader>cl", function()
+      vim.keymap.set("n", "<leader>ih", function()
         vim.lsp.inlay_hint.enable(not
           vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }),
           { bufnr = event.buf }
@@ -50,6 +50,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
         group = LspHighlightGroup,
         callback = vim.lsp.buf.clear_references,
       })
+    end
+
+    -- Trigger codelens manually
+    if client:supports_method("textDocument/codeLens") then
+      vim.keymap.set("n", "<leader>cl", function()
+        vim.lsp.codelens.refresh({ bufnr = event.buf })
+      end, { desc = "Refresh CodeLens", buffer = event.buf })
     end
 
     -- Prefer LSP folding if client supports it
