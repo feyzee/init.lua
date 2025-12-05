@@ -1,6 +1,7 @@
--- Create augroups once for better performance
+-- Augroups once for better performance
 local LspAttachGroup = vim.api.nvim_create_augroup("lsp-attach", { clear = true })
 local LspHighlightGroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = true })
+local LastHighlight = {}
 
 -- LSP related
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -16,10 +17,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
 
       vim.keymap.set("n", "<leader>ih", function()
-        vim.lsp.inlay_hint.enable(not
-          vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }),
-          { bufnr = event.buf }
-        )
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }), { bufnr = event.buf })
       end, { desc = "Toggle Inlay Hints", buffer = event.buf })
     end
 
@@ -28,19 +26,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
       -- Clear existing highlight autocmds for this buffer to prevent duplication
       -- if multiple clients attach to the same buffer
       vim.api.nvim_clear_autocmds({ group = LspHighlightGroup, buffer = event.buf })
-      local last_highlight = {}
 
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = event.buf,
         group = LspHighlightGroup,
-        -- callback = vim.lsp.buf.document_highlight,
         callback = function()
           local current_pos = vim.api.nvim_win_get_cursor(0)
           local pos_key = current_pos[1] .. ":" .. current_pos[2]
           -- Only highlight if position changed
-          if last_highlight[event.buf] ~= pos_key then
+          if LastHighlight[event.buf] ~= pos_key then
             vim.lsp.buf.document_highlight()
-            last_highlight[event.buf] = pos_key
+            LastHighlight[event.buf] = pos_key
           end
         end,
       })
@@ -60,14 +56,31 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     -- Prefer LSP folding if client supports it
+    local win_id = vim.api.nvim_get_current_win()
     if client:supports_method("textDocument/foldingRange") then
-      vim.api.nvim_set_option_value("foldmethod", "expr", { buf = event.buf })
-      vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.lsp.foldexpr()", { buf = event.buf })
+      for _, win in ipairs(vim.fn.win_findbuf(event.buf)) do
+        if not vim.w[win_id].original_foldexpr then
+          vim.w[win_id].original_foldexpr = vim.api.nvim_get_option_value("foldexpr", { win = win_id })
+        end
+
+        vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.lsp.foldexpr()", { win = win_id })
+      end
+
+      vim.api.nvim_create_autocmd("BufWinEnter", {
+        buffer = event.buf,
+        group = vim.api.nvim_create_augroup("LspFolding-" .. event.buf, { clear = true }),
+        callback = function()
+          local win = vim.api.nvim_get_current_win()
+          if not vim.w[win_id].original_foldexpr then
+            vim.w[win_id].original_foldexpr = vim.wo[win_id].foldexpr
+          end
+          vim.wo[win_id].foldexpr = "v:lua.vim.lsp.foldexpr()"
+        end,
+      })
     end
 
     -- Disable semantic tokens for large files
     if vim.api.nvim_buf_line_count(event.buf) > 5000 then
-      -- client.server_capabilities.semanticTokensProvider = nil
       vim.lsp.semantic_tokens.stop(event.buf, client.id)
     end
   end,
@@ -78,11 +91,16 @@ vim.api.nvim_create_autocmd("LspDetach", {
   group = vim.api.nvim_create_augroup("LspDetach", { clear = true }),
   callback = function(event)
     vim.lsp.buf.clear_references()
+    LastHighlight[event.buf] = nil
     pcall(vim.api.nvim_clear_autocmds, { group = LspHighlightGroup, buffer = event.buf })
+    pcall(vim.api.nvim_clear_autocmds, { group = "LspFolding-" .. event.buf, buffer = event.buf })
     pcall(vim.lsp.inlay_hint.enable, false, { bufnr = event.buf })
 
-    if vim.api.nvim_get_option_value("foldexpr", { buf = event.buf }) == "v:lua.vim.lsp.foldexpr()" then
-      vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.treesitter.foldexpr()", { buf = event.buf })
+    for _, win in ipairs(vim.fn.win_findbuf(event.buf)) do
+      if vim.w[win].original_foldexpr then
+        vim.api.nvim_set_option_value("foldexpr", vim.w[win].original_foldexpr, { win = win })
+        vim.w[win].original_foldexpr = nil
+      end
     end
   end,
 })
@@ -111,7 +129,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     local line_count = vim.api.nvim_buf_line_count(args.buf)
     if mark[1] > 0 and mark[1] <= line_count then
       vim.api.nvim_win_set_cursor(0, mark)
-      -- defer centering slightly so it's applied after render
+      -- Defer centering slightly so it's applied after render
       vim.schedule(function()
         vim.cmd("normal! zz")
       end)
