@@ -129,6 +129,8 @@ return {
         markdown = { "prettier" },
         go = { "gofmt", "goimports" },
         terraform = { "terraform_fmt" },
+        tf = { "terraform_fmt" },
+        ["terraform-vars"] = { "terraform_fmt" },
         fish = { "fish_indent" },
       },
 
